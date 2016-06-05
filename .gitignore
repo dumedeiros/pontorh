@@ -1,5 +1,21 @@
-/tmp
+# Ignore Play! working directory #
+bin/
+/db
+.eclipse
+/lib/
+/logs/
 /modules
-/lib
-/test-result
-/logs
+/project/target
+/target
+# All inside tmp folder, but not the folder itself
+tmp/
+test-result
+server.pid
+*.eml
+/dist/
+.cache
+# Idea Files #
+*.iml
+*.ipr
+*.iws
+*.DS_Store
