@@ -8,6 +8,7 @@ import securesocial.provider.ProviderType;
 import securesocial.provider.SocialUser;
 import securesocial.provider.UserId;
 import securesocial.provider.UserServiceDelegate;
+import utils.StringUtils;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -48,6 +49,11 @@ public class AppUserService implements UserServiceDelegate {
         LinkedAccount linkedAccount = LinkedAccount.findByProviderAndUserId(user.id.provider, user.id.id);
         if (linkedAccount == null) {
             linkedAccount = new SocialUserToLinkedAccount().transform(user);
+        } else {
+            //reseta senha
+            if (!StringUtils.isEmpty(user.password) && !user.password.equals(linkedAccount.password)) {
+                linkedAccount.password = user.password;
+            }
         }
         linkedAccount.save();
     }

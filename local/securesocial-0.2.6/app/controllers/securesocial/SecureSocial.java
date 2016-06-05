@@ -274,6 +274,7 @@ public class SecureSocial extends Controller {
      * Ver: authenticate como exemplo
      */
     public static void authByPost(ProviderType type) {
+        type = ProviderType.userpass;
         doAuthenticate(type);
     }
 

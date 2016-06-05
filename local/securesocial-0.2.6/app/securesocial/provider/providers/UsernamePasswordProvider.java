@@ -93,6 +93,7 @@ public class UsernamePasswordProvider extends IdentityProvider {
             SecureSocial.login();
         }
 
+        //TOTO * ALTERAR IMEDIATAMENTE
         if (socialUser == null || !passwordMatches(Scope.Params.current().get(PASSWORD), socialUser.password)) {
             flash.error(Messages.get(SECURESOCIAL_WRONG_USER_PASS));
             SecureSocial.login();

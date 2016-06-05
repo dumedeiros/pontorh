@@ -1,20 +1,27 @@
 //TODO
 
--> Verificar em production o salvar do username e password nos browsers
+-> Verificar em production o salvar do username e password nos browsers ==> so ta faltando o SAFARI
 
 -> Ao inves de "Não é possível remover a unica forma de se realizar login"
     nao habilitar o link nem permitir a execucao pela barra de endereço
+
 -> Fazer logica para adicionar um username e password a uma conta rede social já adicionada
 
--> testar novamente pq o yahoo ta dando errado
+
 -> verificar as mensagens duplicadas em messages
 -> alterar interface de login (removendo o SecureSocialModule, por exemplo
 -> fazer backup e vinclular com ponto System
-->Botao submit no reset Password
+
 
 
 
 //DONE
--> Implementar esqueceu senha
--> Tratar os pending Jobs
--> Alterar o logo do live
+-> Implementar esqueceu senha ==> resetation ok
+-> Alterar o logo do live ==> design por mim mesmo =)
+-> testar novamente pq o yahoo ta dando errado ==> pq o callback do dominio no yahoo development console não permite
+-> Botao submit no reset Password ==> alterado para "enviar"
+-> Tratar os pending Jobs - Tirar 24h e colocar todo horario num dia (pode dar problema de servidor e nao atualizar no dia)
+   _ ou a cada periodo de tempo (cada 5 horas?) ==> Periodo de 10h
+
+
+legenda: ==> soluçao / comentário

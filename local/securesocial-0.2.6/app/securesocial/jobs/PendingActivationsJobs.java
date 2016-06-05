@@ -21,9 +21,9 @@ import securesocial.provider.UserService;
 
 /**
  * A Job that deletes pending activations every 24 hours
- *
  */
-@Every("24h")
+@Every("10h")
+
 public class PendingActivationsJobs extends Job {
     @Override
     public void doJob() throws Exception {

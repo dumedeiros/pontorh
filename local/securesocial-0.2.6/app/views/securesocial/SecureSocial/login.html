@@ -51,10 +51,10 @@
         <fieldset>
             #{field 'username'}
                 <div class="clearfix #{ifError field.name} error #{/ifError}">
-                    <label for="displayName">&{'securesocial.userNameOrEmail'}</label>
+                    <label for="username">&{'securesocial.userNameOrEmail'}</label>
 
                     <div class="input">
-                        <input id="username" class="large" name="${field.name}" value="${flash.username}"/>
+                        <input id="username" class="large" name="username" value="${flash.username}"/>
                         #{ifError field.name}
                             <span class="help-inline">${field.error}</span>
                         #{/ifError}
@@ -62,13 +62,12 @@
                 </div>
             #{/field}
 
-
             #{field 'password'}
                 <div class="clearfix #{ifError field.name} error #{/ifError}">
                     <label for="password">&{'securesocial.password'}</label>
 
                     <div class="input">
-                        <input id="password" class="large" name="${field.name}" type="password"/>
+                        <input id="password" class="large" name="password" type="password"/>
                         #{ifError field.name}
                             <span class="help-inline">&{'securesocial.required'}</span>
                         #{/ifError}

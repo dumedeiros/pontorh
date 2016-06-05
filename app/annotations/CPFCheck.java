@@ -28,6 +28,7 @@ public class CPFCheck extends AbstractAnnotationCheck<Cpf> {
     /**
      * Cálculo do dígito verificador
      * (Tanto o primeiro quanto o segundo, depedendo do tamanho do string passado
+     *
      * @param cpf
      * @return
      */
@@ -42,6 +43,7 @@ public class CPFCheck extends AbstractAnnotationCheck<Cpf> {
 
     /**
      * Remove os caracteres que não forem números
+     *
      * @param cpf
      * @return
      */
