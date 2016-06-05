@@ -1,0 +1,20 @@
+//TODO
+
+-> Verificar em production o salvar do username e password nos browsers
+
+-> Ao inves de "Não é possível remover a unica forma de se realizar login"
+    nao habilitar o link nem permitir a execucao pela barra de endereço
+-> Fazer logica para adicionar um username e password a uma conta rede social já adicionada
+
+-> testar novamente pq o yahoo ta dando errado
+-> verificar as mensagens duplicadas em messages
+-> alterar interface de login (removendo o SecureSocialModule, por exemplo
+-> fazer backup e vinclular com ponto System
+->Botao submit no reset Password
+
+
+
+//DONE
+-> Implementar esqueceu senha
+-> Tratar os pending Jobs
+-> Alterar o logo do live

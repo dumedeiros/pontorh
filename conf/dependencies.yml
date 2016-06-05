@@ -1,0 +1,15 @@
+# Application dependencies
+
+require:
+    - play
+    - play -> deadbolt 1.5.4
+    - securesocial -> securesocial 0.2.6
+    - play -> crud
+
+repositories:
+    - My modules:
+        type:       local
+        artifact:   ${application.path}/local/[module]-[revision]
+        contains:
+            - securesocial
+            - mysecondmodule

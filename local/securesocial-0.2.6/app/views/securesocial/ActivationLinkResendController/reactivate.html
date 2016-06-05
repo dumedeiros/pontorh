@@ -1,0 +1,27 @@
+#{secure_social_header messages.get('securesocial.resetTitle')/}
+
+<div class="clearfix">
+    <p>&{'securesocial.resetLabel'}</p>
+#{form @controllers.securesocial.ActivationResendController.sendEmail(), autocomplete:'off'}
+    <fieldset>
+        #{field 'email'}
+            <div class="clearfix #{ifError field.name} error #{/ifError}">
+                <label for="${field.name}">&{'securesocial.email'}</label>
+
+                <div class="input">
+                    <input id="${field.id}" class="large" name="${field.name}" value="${flash.email}"/>
+                    #{ifError field.name}
+                        <span class="help-inline">${field.error}</span>
+                    #{/ifError}
+                </div>
+            </div>
+        #{/field}
+
+        <div class="actions">
+            <input type="submit" value="&{'securesocial.form.submit'}" class="btn primary">
+            <a href="@{securesocial.SecureSocial.login()}" class="btn">&{'securesocial.cancel'}</input></a>
+        </div>
+    </fieldset>
+#{/form}
+</div>
+</div>

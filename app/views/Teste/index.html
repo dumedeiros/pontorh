@@ -1,0 +1,93 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+
+
+<h4>TESTE</h4>
+#{if lAcc}
+<div class="span12 columns">
+    <div class="page-header">
+        <h2><img src="${lAcc?.avatarUrl}" width="40px" height="40px"/> Welcome ${lAcc?.displayName}</h2>
+    </div>
+
+    <div class="clearfix">
+        <h2>User details</h2>
+        User id: ${lAcc?.userId}<br>
+        Logged in from: ${lAcc?.provider}<br>
+        Email: ${lAcc?.email}<br>
+        Authentication method: ${lAcc.authMethod}
+
+        #{if lAcc.authMethod == securesocial.provider.AuthenticationMethod.OAUTH1 ||
+        lAcc.authMethod == securesocial.provider.AuthenticationMethod.OPENID_OAUTH_HYBRID}
+            <h2>OAuth 1</h2>
+            Token = ${user.token}<br>
+            Secret = ${user.secret}
+        #{/if}
+
+        #{if lAcc.authMethod == securesocial.provider.AuthenticationMethod.OAUTH2}
+            <h2>OAuth 2</h2>
+            Access token = ${lAcc.accessToken}
+        #{/if}
+
+        <h2>Deadbolt Integration</h2>
+
+        <p>The link below is protected using deadbolt. Only twitter users can see it.</p>
+        <a href="@{Authentication.onlyTwitterUsers}">try me</a>
+    </div>
+
+
+    #{if !providerTypes?.isEmpty()}
+    ${providerTypes}
+        <table>
+            <tr>
+                <td colspan="3">Add new linked account</td>
+            </tr>
+            <tr>
+            *{#{ifnot myUser?.twitterId}}*
+            *{<span>${myUser?.twitterId}</span>}*
+            *{<a href="@{Authentication.onlyAuthenticate("twitter")}">Twitter</a>}*
+            *{#{/ifnot}}*
+
+                #{list items:providerTypes, as:'providerType'}
+                    <a href="@{Application.newLinkedAccount(providerType)}">${providerType}</a>
+                    <option value="${providerType}">${providerType}</option>
+                #{/list}
+
+                <form method="post" action="@{Application.newLinkedAccount()}">
+                    <td>Service:</td>
+                    <td>
+                        <select name="provider">
+                            #{list items:providerTypes, as:'providerType'}
+                                <option value="${providerType}">${providerType}</option>
+                            #{/list}
+                        </select>
+                    </td>
+                    <td>
+                        <input type="submit" value="Go!"/>
+                    </td>
+                </form>
+            </tr>
+        </table>
+    #{/if}
+
+*{<table>}*
+*{#{list items:linkedAccounts.entrySet(), as:'linkedAccount'}}*
+*{%{ account = linkedAccount.getValue() }%}*
+*{<tr>}*
+*{<td>${account.provider}</td>}*
+*{<td><img src="${account.avatarUrl}"/></td>}*
+*{<td>${account.displayName}</td>}*
+*{</tr>}*
+*{#{/list}}*
+*{</table>}*
+
+
+    <div class="well" style="margin-top: 15px;">
+        <a href="@{securesocial.SecureSocial.logout}" class="btn primary ">Logout</a>
+    </div>
+</div>
+
+#{/if}
+
+
+

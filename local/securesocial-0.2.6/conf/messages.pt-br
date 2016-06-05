@@ -1,0 +1,123 @@
+#
+# Default Messages
+#
+validation.required=Obrigatório
+validation.email=Email Inválido
+validation.match=Nome de usuário inválido
+
+#Forbidden
+forbidden=Acesso Negado
+
+#
+# Login
+#
+securesocial.loginTitle=Log In
+securesocial.login=Log In
+securesocial.clickOnYourAccount=Use sua conta de uma das seguintes redes para se logar.
+securesocial.useEmailAndPassword=Ou entre com o usuário e senha
+securesocial.email=Endereço de Email
+securesocial.emailHelp=Ex: joao.dae@gmail.com
+securesocial.password=Senha
+securesocial.wrongUserPass=Nome de usuário/email ou senha errada
+securesocial.required=Obrigatório
+securesocial.invalidEmail=Entre com um email válido
+securesocial.signUp=Ainda não tem uma conta? Inscreva-se!
+securesocial.here=aqui
+securesocial.badUserPasswordCombination=Nome de usuário/email ou senha errada
+# [type] gets replaced by the provider id in the login page.
+# can't use %s because the string is being processed in javascript.
+securesocial.openIdUser=Nome de usuário em [type]
+securesocial.openIdUserNotSpecified=Nome de usuário não especificado
+securesocial.authError=Houve um erro ao tentar te logar. Por favor, tente novamente.
+
+
+#
+# Load
+#
+securesocial.loadError=Houve um erro ao carregar os dados. Por favor, tente novamente.
+
+#
+# SignUp
+#
+securesocial.signUpTitle=Inscreva-se
+securesocial.signUpLabel=Complete o seguinte formulário:
+securesocial.userName=Nome de usuário
+securesocial.userNameOrEmail=Usuário ou email
+securesocial.name=Nome completo
+securesocial.password2=Confirmação de senha
+securesocial.cancel=Cancelar
+securesocial.passwordsMustMatch=As senhas devem ser iguais
+securesocial.userNameTaken=Nome de usuário já está sendo utilizado
+securesocial.userEmailTaken=Email já cadastrado no sistema
+securesocial.activationTitle=Bem vindo %s
+securesocial.activationSuccess=Sua conta foi ativada com sucesso. Clique <a href="%s">aqui</a> para logar.
+securesocial.activateTitle=Ativação de conta
+securesocial.errorCreatingAccount=Houve um erro ao criar a sua conta. Por favor, tente novamente.
+securesocial.accountNotActive=Sua conta ainda não está ativa. Se você acha que isso é um erro, por favor entrar em contato com o administrador.
+securesocial.accountCreated=Sua conta foi criada com sucesso. Você deverá receber um email em instantes.
+securesocial.invalidLink=Esse link de ativação está inválido.
+securesocial.createAccount='Criar Conta'
+
+#
+# Welcome email
+#
+securesocial.greeting=Bem vindo %s,
+securesocial.emailText=Clique neste <a href="%s">link</a> para ativar a sua conta.
+
+#
+# Password change
+#
+securesocial.changeTitle=Mudar a senha
+securesocial.changeLabel=Digite sua senha atual e a sua nova senha
+securesocial.changeError=Houve um erro ao mudar a sua senha. Por favor, tente novamente.
+securesocial.changeCurrentPasswordError=A senha digitada está incorreta.
+securesocial.wrongPassword=Senha Incorreta
+securesocial.currentPassword=Senha atual
+securesocial.newPassword=Nova senha
+securesocial.confirmPassword=Confirme a nova senha
+securesocial.changeSuccess=Sua senha foi alterada
+securesocial.changeSuccessTitle=Sua senha foi alterada com sucesso
+
+#
+# Password reset
+#
+securesocial.resetSuccess=Sua senha foi redefinida
+securesocial.resetSuccessTitle=Redefinição de senha com sucesso
+securesocial.resetEmailSent=A senha de redefinição foi enviada para o email (%s)
+securesocial.resetEmailSentTitle=Email enviado
+securesocial.resetTitle=Redefinição de senha
+securesocial.resetLabel=Por favor, insira o endereço de email utilizado na sua inscrição
+securesocial.invalidResetTitle=A senha de redefinição não é válida
+securesocial.invalidResetLink=O link de reativação de senha não é vlálido
+securesocial.resetError=Houve um erro ao resetar a sua senha. Por favor, tente novamente
+securesocial.resetEmailNotRegistred=Esse email não está cadastrado no sistema
+securesocial.forgotPassword=Esquece a senha?
+securesocial.dear=Prezado(a) %s,
+securesocial.resetEmailText=Este e-mail é uma solicitação de recuperação de senha.\
+<p>Para redefinir sua senha clique no link abaixo e informe sua nova senha. Este email é válido por 48h. Após esse período, você deverá solicitar a redefinição de senha novamente.</p> <p>Para redefinir sua senha, clique no link: <a href="%s">Redefinir senha</a></p>\<p>Se desejar, copie e cole o link em seu navegador de preferência.</p>\
+<p>Caso o destinatário não seja você ou não tenha solicitado a redefinição de senha, por favor, apenas desconsidere esse e-mail.</p>
+
+
+
+#
+# Activation Link Resend
+#
+securesocial.activationLinkResendMailSent=Um link para ativar a sua conta foi enviada para o seu email (%s).
+securesocial.activationLinkResendTitle=Email Enviado
+securesocial.activationLinkResendEmailNotRegistred=Esse email não está cadastrado no sistema
+
+#
+# Mailer
+#
+
+securesocial.mailer.subject=Ative a sua conta
+securesocial.mailer.reset.subject=Redefinição de senha
+
+
+
+#
+# Form
+#
+securesocial.form.submit=Enviar
+
+

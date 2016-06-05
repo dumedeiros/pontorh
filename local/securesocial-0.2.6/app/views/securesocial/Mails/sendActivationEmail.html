@@ -1,0 +1,10 @@
+
+*{//TODO melhorar o corpo desse email}*
+<html>
+    <body>
+        <p>&{'securesocial.greeting', user.displayName}</p>
+        <p>&{'securesocial.emailText', activationUrl}</p>
+        *{// OBS roteamento completo sem precisar do activationURL, chamando o controlador diretamente com o @@(controller.action)}*
+        *{#{a @@securesocial.UsernamePasswordController.activate(uuid)} asdadas#{/a}}*
+    </body>
+</html>

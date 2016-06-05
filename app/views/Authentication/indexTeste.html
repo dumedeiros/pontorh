@@ -1,0 +1,127 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<div class="span12 columns">
+    <div class="page-header">
+        <h2><img src="${user.avatarUrl}" width="40px" height="40px"/> Welcome ${user.displayName}</h2>
+    </div>
+
+    <div class="clearfix">
+        <h2>User details</h2>
+        User id: ${user.id.id}<br>
+        Logged in from: ${user.id.provider}<br>
+        Email: ${user.email}<br>
+        Authentication method: ${user.authMethod}
+
+    #{if user.authMethod == securesocial.provider.AuthenticationMethod.OAUTH1 ||
+    user.authMethod == securesocial.provider.AuthenticationMethod.OPENID_OAUTH_HYBRID}
+        <h2>OAuth 1</h2>
+        Token = ${user.token}<br>
+        Secret = ${user.secret}
+    #{/if}
+
+    #{if user.authMethod == securesocial.provider.AuthenticationMethod.OAUTH2}
+        <h2>OAuth 2</h2>
+        Access token = ${user.accessToken}
+    #{/if}
+
+        <h2>Deadbolt Integration</h2>
+
+        <p>The link below is protected using deadbolt. Only twitter users can see it.</p>
+        <a href="@{Authentication.onlyTwitterUsers}">try me</a>
+    </div>
+
+
+
+
+
+#{if myUser?.avatarUrl}
+    <img src="${myUser.avatarUrl}">
+#{/if}
+#{else}
+    <img src="@{'/public/images/UserIcon.png'}">
+#{/else}
+
+    <div>
+        <span>UserName <b>${myUser?.userName}</b></span>
+    </div>
+
+    <div>
+        Nome de usuário: ${myUser?.userName}<br>
+    </div>
+
+#{if myUser?.twitterId}
+    <span>TwitterId <b>${myUser?.twitterId}</b></span>
+    <a href="@{Authentication.removeSocialId(myUser.id, 'twitter')}">Remover</a><br/>
+#{/if}
+
+#{if myUser?.facebookId}
+    <div>
+        <span>FacebookId <b>${myUser?.facebookId}</b></span>
+        <a href="@{Authentication.removeSocialId(myUser.id, 'facebook')}" id="facebook">Remover</a><br/>
+    </div>
+#{/if}
+
+#{if myUser?.googleoauth2Id}
+    <span>GoogleId <b>${myUser?.googleoauth2Id}</b></span>
+    <a href="@{Authentication.removeSocialId(myUser.id, 'googleoauth2')}">Remover</a><br/>
+#{/if}
+
+#{if myUser?.liveoauth2Id}
+    <span>LiveId <b>${myUser?.liveoauth2Id}</b></span>
+    <a href="@{Authentication.removeSocialId(myUser.id, 'liveoauth2')}">Remover</a><br/>
+#{/if}
+
+
+    <div class="clearfix">
+        <p>&{'securesocial.clickOnYourAccount'}</p>
+
+
+    *{#{ifnot myUser?.twitterId}}*
+        *{<span>${myUser?.twitterId}</span>}*
+        *{<a href="@{Authentication.onlyAuthenticate("twitter")}">Twitter</a>}*
+    *{#{/ifnot}}*
+
+
+    *{#{ifnot myUser?.facebookId}}*
+        *{<span>${myUser?.facebookId}</span>}*
+        *{<a href="@{Authentication.onlyAuthenticate("facebook")}">Face</a>}*
+    *{#{/ifnot}}*
+
+    *{#{ifnot myUser?.googleoauth2Id}}*
+        *{<span>${myUser?.googleoauth2Id}</span>}*
+        *{<a href="@{Authentication.onlyAuthenticate("googleoauth2")}">Google</a>}*
+    *{#{/ifnot}}*
+
+    *{#{ifnot myUser?.liveoauth2Id}}*
+        *{<span>${myUser?.liveoauth2Id}</span>}*
+        *{<a href="@{Authentication.onlyAuthenticate("liveoauth2")}">Live</a>}*
+    *{#{/ifnot}}*
+    *{</div>}*
+
+
+#{if flash.error}
+    <div class="alert-message block-message error">
+        <div class="alert-actions">
+        ${flash.error}
+        </div>
+    </div>
+#{/if}
+#{ifErrors}
+    <h2>Oops…</h2>
+#{/ifErrors}
+
+
+#{ifnot myUser?.userName}
+    <div class="well" style="margin-top: 15px;">
+        <a href="@{Authentication.addUserName()}" class="btn primary ">Add</a>
+    </div>
+#{/ifnot}
+
+    <div class="well" style="margin-top: 15px;">
+        <a href="@{securesocial.SecureSocial.logout}" class="btn primary ">Logout</a>
+    </div>
+
+
+</div>
+

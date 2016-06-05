@@ -1,0 +1,94 @@
+*{//OBS pagina praticamente igual a SigNup}*
+*{//TODO colocar a mensagem apropriada aqui}*
+#{secure_social_header "Inseria os dados abaixo"/}
+
+
+#{errors }
+${error}
+#{/errors}
+${flash.error}
+<div class="clearfix">
+    <p>&{'securesocial.signUpLabel'}</p>
+#{form @securesocial.UsernamePasswordController.appendUsernamePassword(), autocomplete:'off'}
+*{//OBS flag que determina se eh para adicionar ao usuario ja logado}*
+    <input type="hidden" name="isToAppend" value="true">
+    <input type="hidden" name="user.displayName" value="${user.fullName}">
+
+    <fieldset>
+        #{field 'user.id.id'}
+            <div class="clearfix #{ifError field.name} ? error : '' #{/ifError}">
+                <label for="${field.id}">&{'securesocial.userName'}</label>
+
+                <div class="input">
+                *{//fixme descomentar e remover linha abaixo}*
+                *{<input id="${field.id}" class="large" name="${field.name}" value="${field.value}"/>}*
+                    <input id="${field.id}" class="large" name="${field.name}" value="${flash."${field.name}" }"/>
+                    #{ifError field.name}
+                        <span class="help-inline">${field.error}</span>
+                    #{/ifError}
+                </div>
+            </div>
+        #{/field}
+
+
+        #{field 'user.email'}
+            <div class="clearfix #{ifError field.name} error #{/ifError}">
+                <label for="${field.id}">&{'securesocial.email'}</label>
+
+                <div class="input">
+                *{//fixme descomentar e remover linha abaixo}*
+                *{<input id="${field.id}" class="large" name="${field.name}" value="${field.value}"/>}*
+                    <input id="${field.id}" class="large" name="${field.name}" value="${flash."${field.name}" }"/>
+                    <span class="help-inline">
+                            #{ifError field.name}
+                            ${field.error}
+                            #{/ifError}
+                            #{else}
+                    &{'securesocial.emailHelp'}
+                    #{/else}
+                        </span>
+                </div>
+            </div>
+        #{/field}
+
+        #{field 'user.password'}
+            <div class="clearfix #{ifError field.name} error #{/ifError}">
+                <label for="${field.id}">&{'securesocial.password'}</label>
+
+                <div class="input">
+
+                *{//fixme descomentar e remover linha abaixo}*
+                *{<input id="${field.id}" class="large" name="${field.name}" type="password"/>}*
+                    <input id="${field.id}" class="large" name="${field.name}" type="password" value="a"/>
+                    #{ifError field.name}
+                        <span class="help-inline">${field.error}</span>
+                    #{/ifError}
+                </div>
+            </div>
+        #{/field}
+
+        #{field 'user.passwordConfirm'}#{/field}
+        <div class="clearfix #{ifError field.name} error #{/ifError}">
+            <label for="${field.id}">&{'securesocial.password2'}</label>
+
+            <div class="input">
+            *{//fixme descomentar e remover linha abaixo}*
+            *{<input id="${field.id}" class="large" name="${field.name}" type="password"/>}*
+                <input id="${field.id}" class="large" name="${field.name}" type="password" value="a"/>
+                #{ifError field.name}
+                    <span class="help-inline">${field.error}</span>
+                #{/ifError}
+            </div>
+        </div>
+
+        <div class="actions">
+        *{//TODO colocar a msg correta em create account}*
+            <input type="submit" value="Salvar" class="btn primary">
+            <a href="@{Authentication.indexTeste()}" class="btn">&{'securesocial.cancel'}</input></a>
+        </div>
+    </fieldset>
+#{/form}
+</div>
+</div>
+
+#{mytags.discardFlash /}
