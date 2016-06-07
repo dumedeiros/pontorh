@@ -27,7 +27,7 @@ public class SociallySecureRestrictedResourcesHandler implements RestrictedResou
 //
 //                             String otherUserId = resourceParameters.get("otherUserId");
 //                             User otherUser = User.findById(Long.parseLong(otherUserId));
-//                             User currentUser = RootController.getUser();
+//                             User currentUser = RootController.getLoggedUser();
 //                             if (otherUser.isFriend(currentUser))
 //                             {
 //                                 accessResult = AccessResult.ALLOWED;

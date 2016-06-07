@@ -116,6 +116,7 @@ public class SecureSocial extends Controller {
             }
 
             /**
+             * TODO comparar com o modulo original e talvez remover
              *@OBS Eduardo Medeiros Ja que o meu find (AppUserService) nao consegue atribuir um userId ao SocialUser,
              * fazê-lo aqui agora
              */
@@ -199,7 +200,7 @@ public class SecureSocial extends Controller {
      */
     public static void login() {
 
-
+        String asdasd = Play.configuration.getProperty("application.name");
 //        debug();
 
         final Collection providers = ProviderRegistry.all();
@@ -207,6 +208,7 @@ public class SecureSocial extends Controller {
         boolean userPassEnabled = ProviderRegistry.get(ProviderType.userpass) != null;
         render(providers, userPassEnabled);
     }
+
 
     /**
      * The logout action.

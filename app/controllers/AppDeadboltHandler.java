@@ -40,7 +40,7 @@ public class AppDeadboltHandler extends RootController implements DeadboltHandle
     }
 
     public RoleHolder getRoleHolder() {
-        return getUser();
+        return RootController.getLoggedUser();
     }
 
     public void onAccessFailure(String controllerClassName) {

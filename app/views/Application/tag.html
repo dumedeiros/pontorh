@@ -1,0 +1,131 @@
+<!--*TABSPANEL-->
+<!-- Tab panes -->
+<div class="tab-content" style="margin-top: -40px">
+
+    <!--*TABELA SEMANA-->
+    <div role="tabpanel" class="tab-pane active" id="week">
+        <table class="fashion" width=70%">
+            <thead style="text-align: center">
+            <tr>
+                <th width="1%"></th>
+                <th width="2%">Data</th>
+                <th width="6%">Horários Registrados</th>
+                <th width="6%"> Horas Resigtradas</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            #{list items:wdWeekTree, as:'wd'}
+            <tr>
+                <td>
+                    #{if wd.value?.message}
+                        <img data-toggle="modal" data-target="#modalPanel"
+                             data-wdcomment="${wd.value.message}"
+                             data-wdid="${wd.value.id}"
+                             class="user-comment"
+                             style="margin: -10px 0 0px 0;position: absolute"
+                             src="@{'/public/images/user_comment.png'}">
+                    #{/if}
+                </td>
+                <td class="tooltipWrapper" style=" text-align: center;">
+                ${wd.key}
+                    <span class="tooltipTop">${wd.key.dayalize()}</span>
+                </td>
+                <td>
+                    #{if wd.value?.periods}
+                    #{/if}
+                    #{else }---#{/else}
+
+                    #{list items:wd.value?.periods, as:'p'}
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <span>${p.dateIn?.format('HH:mm')}</span> -
+                        <span>${p.dateOut?.format('HH:mm')}</span><br>
+                    #{/list}
+                </td>
+                <td style=" text-align: center">
+                ${hr}
+                    #{if wd.key}
+                    ${wd.value?.registredTime?.formatime("%02d:%02d:%02d")}
+                    #{/if}
+                    #{else }---#{/else}
+                </td>
+            </tr>
+            #{/list}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3" style="font-weight: bold;text-align: right;">Total Registrado na
+                    Semana:
+                </td>
+                <td align="right" style="font-weight: bold;">
+                    <span id="totalRegistradoSemana">${wTime.formatime("%02d:%02d:%02d")}</span>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <!--*TABELA MES-->
+    <div role="tabpanel" class="tab-pane" id="month">
+        <table class="fashion" width=70%">
+            <thead style="text-align: center">
+            <tr>
+                <th width="1%"></th>
+                <th width="8%">Data</th>
+                <th width="11%">Horários Registrados</th>
+                <th width="11%"> Horas Resigtradas</th>
+            </tr>
+            </thead>
+            <tbody>
+            #{list items:wdMonthTree, as:'wd'}
+            <tr>
+                <td>
+                    #{if wd.value?.message}
+                        <img data-toggle="modal" data-target="#modalPanel"
+                             data-wdcomment="${wd.value.message}"
+                             data-wdid="${wd.value.id}"
+                             class="user-comment"
+                             style="margin: -10px 0 0px 0;position: absolute"
+                             src="@{'/public/images/user_comment.png'}"/>
+                    *{<span class="not-displayable">${wd.value.message}</span>}*
+                    #{/if}
+                </td>
+                <td class="tooltipWrapper" style=" text-align: center;">
+                ${wd.key}
+                    <span class="tooltipTop">${wd.key.dayalize()}</span>
+                </td>
+                <td>
+                    #{if wd.value?.periods}
+                    #{/if}
+                    #{else }---#{/else}
+
+                    #{list items:wd.value?.periods, as:'p'}
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <span>${p.dateIn?.format('HH:mm')}</span> -
+                        <span>${p.dateOut?.format('HH:mm')}</span><br>
+                    #{/list}
+                </td>
+                <td style=" text-align: center">
+                ${hr}
+                    #{if wd.key}
+                    *{${wd.value?.registredTime?.asdate('hh:mm')}}*
+                    ${wd.value?.registredTime?.formatime("%02d:%02d:%02d")}
+                    #{/if}
+                    #{else }---#{/else}
+                </td>
+            </tr>
+            #{/list}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3" style="font-weight: bold;text-align: right;">Total Registrado no
+                    Mes
+                </td>
+                <td align="right" style="font-weight: bold;">
+                    <span id="totalRegistradoSemana">${mTime.formatime("%02d:%02d:%02d")}</span>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

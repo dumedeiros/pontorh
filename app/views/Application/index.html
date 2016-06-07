@@ -1,102 +1,293 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'Ponto RH' /}
 
-#{if flash.error}
-<span style="background: darkred; color: white" class="error">${flash.error}</span>
-#{/if}
-#{if lAcc}
-<div class="span12 columns">
-    <div class="page-header">
-        <h2><img src="${lAcc?.avatarUrl}" width="40px" height="40px"/> Welcome ${lAcc?.displayName}</h2>
-    </div>
-${lAcc.user.roles}
-    <div class="clearfix">
-        <h2>User details</h2>
+    <!--*FORMREGISTER-->
+    <form action="@{controllers.Application.registerPeriod}" name="registerForm">
+        <section>
+            <table class="no-flash fashion">
+                <thead>
+                <tr>
+                    <th colspan="2" style="text-align: center">Registro De Horário de Entrada</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="width: 120px">Data:</td>
+                    <td>${today.format()}</td>
+                </tr>
+                <tr>
+                *{TODO} alterar para saber se deve colocar*}*
+                #{if timeIn}
+                    <td>Hora de Entrada:</td>
+                    <td>${timeIn}</td>
+                #{/if}
+                </tr>
+                <tr>
+                    <td>Hora:</td>
+                    <td id="clock"></td>
+                </tr>
+                <tr>
+                    <td> OBS:</td>
+                    <td style="padding: 5px 20px 5px 0px">
+                        <div class="input-group">
+                                        <textarea tabindex="1" name="msg" class="form-control custom-control" rows="3"
+                                                  style="resize:none"></textarea>
+                                        <span style="margin-right: 10px" id="send" tabindex="2"
+                                              onclick="registerForm.submit()" type="submit"
+                                              class="input-group-addon btn btn-primary"> Registrar</span>
+                        </div>
 
-        User id: ${lAcc?.userId}<br>
-        Logged in from: ${lAcc?.provider}<br>
-        Email: ${lAcc?.email}<br>
-        Authentication method: ${lAcc.authMethod}
-
-        #{if lAcc.authMethod == securesocial.provider.AuthenticationMethod.OAUTH1 ||
-        lAcc.authMethod == securesocial.provider.AuthenticationMethod.OPENID_OAUTH_HYBRID}
-            <h2>OAuth 1</h2>
-            Token = ${user.token}<br>
-            Secret = ${user.secret}
-        #{/if}
-
-        #{if lAcc.authMethod == securesocial.provider.AuthenticationMethod.OAUTH2}
-            <h2>OAuth 2</h2>
-            Access token = ${lAcc.accessToken}
-        #{/if}
-
-        <h2>Deadbolt Integration</h2>
-
-        <p>The link below is protected using deadbolt. Only twitter users can see it.</p>
-    *{<a href="@{Authentication.onlyTwitterUsers}">try me</a>}*
-        <a href="@{CRUD.index()}">try me</a>
-    </div>
-
-
-    <br/>
-    -------------------------------
-    <br/>
-
-    #{if !providerTypes?.isEmpty()}
-    ${providerTypes}
-        <table>
-            <tr>
-                <td colspan="3">Add new linked account</td>
-            </tr>
-            <tr>
-            *{#{ifnot myUser?.twitterId}}*
-            *{<span>${myUser?.twitterId}</span>}*
-            *{<a href="@{Authentication.onlyAuthenticate("twitter")}">Twitter</a>}*
-            *{#{/ifnot}}*
-
-                #{list items:providerTypes, as:'providerType'}
-                    <a href="@{Application.newLinkedAccount(providerType)}">${providerType}</a>
-                    <option value="${providerType}">${providerType}</option>
-                #{/list}
-
-                <form method="post" action="@{Application.newLinkedAccount()}">
-                    <td>Service:</td>
-                    <td>
-                        <select name="provider">
-                            #{list items:providerTypes, as:'providerType'}
-                                <option value="${providerType}">${providerType}</option>
-                            #{/list}
-                        </select>
                     </td>
-                    <td>
-                        <input type="submit" value="Go!"/>
-                    </td>
-                </form>
-            </tr>
-        </table>
-    #{/if}
+                </tr>
+                *{<tr>}*
+                *{<td colspan="2" style="text-align: center"><input type="submit" value="Registrar"}*
+                *{class="btn btn-primary"></input></td>}*
+                *{</tr>}*
+                </tbody>
+            </table>
 
-    <table>
-        #{list items:linkedAccounts.entrySet(), as:'linkedAccount'}
-        %{ account = linkedAccount.getValue() }%
-            <tr>
-                <td>${account.provider}</td>
-                <td>${account.id}</td>
-                <td><img src="${account.avatarUrl}"/></td>
-                <td>${account.displayName}</td>
-                <td><a href="@{Application.unLinkAccount(account.id)}">Unlink</a></td>
-            </tr>
-        #{/list}
-    </table>
+        </section>
+    </form>
 
 
-    <div class="well" style="margin-top: 15px;">
-    *{<a href="@{securesocial.SecureSocial.logout}" class="btn primary ">Logout</a>}*
-        <a href="@{RootController.logout()}" class="btn primary ">Logout</a>
+    <div style="margin-top: 100px">
+
+        <!--*FORMFILTER-->
+        <form action="@{controllers.Application.filterDate}" name="filterDateForm">
+            <div class="input-group" style="float: right; width: 145px; left: -150px">
+                <input name="date" id="date-picker" type="text" class="form-control custom-control"
+                       value="${date?.format()}">
+                            <span onclick="filterDateForm.submit()"
+                                  class="input-group-addon btn btn-primary"> Ok</span>
+            </div>
+        </form>
+
+
+        <!--*TABS-->
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist" style="margin-left: 150px; width: 70%">
+            <li role="presentation" class="active">
+                <a href="#week" aria-controls="week" role="tab" data-toggle="tab">Horários da Semana</a>
+            </li>
+            <li role="presentation"><a href="#month" aria-controls="month" role="tab" data-toggle="tab">Horários
+                do Mês</a>
+            </li>
+        </ul>
+
+
+        <!--*TABSPANEL-->
+        <!-- Tab panes -->
+        <div class="tab-content" style="margin-top: -40px">
+
+        #{display tree:wdWeekTree, as:'week', time:wTime /}
+
+            #{display tree:wdMonthTree, as:'month', time:mTime /}
+
+        </div>
+
     </div>
 </div>
 
-#{/if}
+#{modal /}
+
+<script>
+
+    $(document).ready(function () {
+        $("#send").focus();  //Focus on register button to allow the user register quickly
+        startTime();
+    });
+
+    //Show alert in modal window
+    function showModalAlert(f) {
+        if (f == true) {
+            $(".modal .alert").fadeIn(500);
+        } else {
+            $(".modal .alert").hide();
+        }
+    }
+
+    //Show load image in modal window
+    function showLoad(f) {
+        if (f == true) {
+            $(".modal-header .cssload-loader").removeClass("elm-hidden");
+        } else {
+            $(".modal-header .cssload-loader").addClass("elm-hidden");
+        }
+    }
+
+    //*RELOGIO
+    //Create a clock to put in the view
+    function startTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+
+        m = m < 10 ? ("0" + m) : m;
+        s = s < 10 ? ("0" + s) : s;
+
+        $('#clock').html(h + ":" + m + ":" + s);
+
+        var t = setTimeout(startTime, 1000);
+    }
+
+    //*SCRIPT
+    var elementHolder, jqxhr;
+
+    //*MODAL
+    $('#modalPanel').on('show.bs.modal', function (e) {
+        var button = $(e.relatedTarget); // Button that triggered the modal
+        elementHolder = button;          //put it global to external access
+
+        // Extract info from data-* attributes
+        var comment = $(button).attr('data-wdcomment');
+        var id = button.data('wdid');
+
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this);
+        //Get the WorkDay message and fill the main and the aux textareas
+        modal.find('.modal-body textarea#workday-comment-editor').val(comment);
+        modal.find('.modal-body textarea#workday-comment-aux').val(comment);
+        modal.find('.modal-body input').val(id);
+    }).modal({
+        backdrop: 'static', //click anywhere out of modal don' close it
+        show: false         // Initialize hidden
+    });
 
 
+    //    *AJAX
+    $("button#save-workday-comment").click(function () {
 
+        // get the comment msg from modal windows and compare if it has been modified
+        var txt = $(".modal-body textarea#workday-comment-editor").val();
+        var aux = $(".modal-body textarea#workday-comment-aux").val();
+
+        if (txt !== aux) { //if it's been modified
+
+            showLoad(true);
+            showModalAlert(false);
+
+            jqxhr = $.ajax({
+                url: "@{Ajax.editComment}",
+                type: 'POST',
+                data: $("#comment-form").serialize(),
+                beforeSend: function () { //cancel previous ajax call
+                    if (jqxhr != null) {
+                        jqxhr.abort();
+                    }
+                },
+                success: function (d) {
+                    $("#modalPanel").modal('hide');
+
+                    //Update
+                    var wdid = elementHolder.attr('data-wdid')
+                    var el = $('img[data-wdid=' + wdid + ']');    //elements that hold the comments (week and/or month)
+                    $(el).attr('data-wdcomment', d.data.comment);
+                    showNotification();
+                },
+                error: function () {
+                    showModalAlert(true);
+                },
+                complete: function () {
+                    showLoad(false);
+
+                }
+
+            });
+
+        } else {
+            $("#modalPanel").modal('hide');
+            showLoad(false);
+            showModalAlert(false);
+        }
+
+
+    });
+
+    $(".modal-footer #cancel, .modal-header .close").click(function () {
+        showLoad(false);
+        showModalAlert(false);
+
+        //cancels previous ajax requisition
+        if (jqxhr != null) {
+            jqxhr.abort();
+        }
+
+    });
+
+
+    //    *DATEPICKER
+    $('#date-picker').datepicker({
+        format: "dd/mm/yyyy",
+        weekStart: 1,   //monday
+        startView: 1,   //month
+        maxViewMode: 2, //years
+        todayBtn: "linked",
+        language: "pt-BR",
+        forceParse: false,
+        todayHighlight: true,
+        toggleActive: true,
+        immediateUpdates: true,
+        autoclose: true,
+    });
+
+    //*ENTER PARA REGISTRAR
+    $(document).keypress(function (e) {
+        if (e.which == 13 && $("#send").is(":focus")) {
+            $("#send").click();
+        }
+    });
+
+
+    function showNotification() {
+        $.notify({
+            // options
+            message: 'Observação registrada com sucesso.'
+        }, {
+            allow_dismiss: false,
+            position: null,
+            type: 'centred',
+            z_index: 1031,
+            delay: 2000,
+            timer: 1000,
+            placement: {
+                from: 'top',
+                align: 'center'
+            },
+        });
+    }
+
+
+    //    $.notify({
+    ////        icon: 'https://randomuser.me/api/portraits/med/men/77.jpg',
+    ////        title: 'Byron Morgan',
+    //        message: 'Momentum reduce child mortality effectiveness incubation empowerment connect.'
+    //    }, {
+    //
+    //        allow_dismiss: false,
+    //        position: null,
+    //        type: 'minimalist',
+    //        offset: 10,
+    //        spacing: 110,
+    //        z_index: 1031,
+    //        delay: 2000,
+    //        timer: 1000,
+    //        placement: {
+    //            from: 'top',
+    //            align: 'center'
+    //        },
+    //
+    //    });
+
+    //    setTimeout(function() {
+    //        $.notifyClose();
+    //    }, 3000);
+
+</script>
+
+</head>
+
+
+<!--*NOTIFICATIONS BOOTSTRAP-->
+*{http://bootstrap-notify.remabledesigns.com/}*

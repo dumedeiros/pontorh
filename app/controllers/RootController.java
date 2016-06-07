@@ -1,9 +1,10 @@
 package controllers;
 
+
 import controllers.securesocial.SecureSocial;
-import models.Account;
-import models.LinkedAccount;
-import models.User;
+import models.pontorh.User;
+import models.securesocial.Account;
+import models.securesocial.LinkedAccount;
 import play.data.validation.Required;
 import play.mvc.Controller;
 import play.mvc.Util;
@@ -20,7 +21,7 @@ import java.util.HashMap;
 @With(SecureSocial.class)
 public class RootController extends Controller {
 
-    public static User getUser() {
+    public static User getLoggedUser() {
         String userId = session.get("userId");
         User user = null;
         if (!StringUtils.isEmpty(userId)) {
@@ -30,13 +31,13 @@ public class RootController extends Controller {
     }
 
     public static Account getAccount() {
-        User user = getUser();
+        User user = getLoggedUser();
         return Account.findByUser(user);
     }
 
     @Util
     //OBS alterei de publico para protected para nao ser possivel acessar pela barra de enderecos
-    protected static void setUser(Long userId) {
+    protected static void setLoggedUser(Long userId) {
         session.put("userId", userId);
     }
 
@@ -83,7 +84,7 @@ public class RootController extends Controller {
 //                linkedAccount);
 //        account.save();
 //
-//        setUser(userName);
+//        setLoggedUser(userName);
 //
 //        Application.index();
     }
@@ -116,9 +117,7 @@ public class RootController extends Controller {
         account.linkedAccounts.put(linkedAccount.provider,
                 linkedAccount);
         account.save();
-
-        Long asd = user.id;
-        setUser(user.id);
+        setLoggedUser(user.id);
 
         Application.index();
     }

@@ -1,5 +1,20 @@
 //TODO
 
+
+    // TODO =-> PONTO SYSTEM marcacao de entrada sem saida ficar alinhado à esquerda OK
+    //TODO text area border com cor diferente OK
+    //Fazer tratamento das mensagens:
+    //Fix: dia 30 de abril ta exibindo 1 de maio na tabela da semana
+    //Ideias, fazer ajax de observacao lendo a msg no lado cliente (msgs ja sao carregadas), ajax somente para editar
+    //__ buscar capo data-id e alterardata-wdcomment
+    // Apos a mensagem ser editada e se a msg for vazia, remover o icone
+    //Tratar botao voltar para nao exibir a pagina anterior -> com javascrtipt document Ready verificando os cookies?
+    // Adicionar cores nos finais de semana (vermelho)
+    //Colocar a class active nas abas principais (Inicio & Conta)
+    //Criar formulario de edicao dos dados dos usuarios
+
+
+
 -> Verificar em production o salvar do username e password nos browsers ==> so ta faltando o SAFARI
 
 -> Ao inves de "Não é possível remover a unica forma de se realizar login"

@@ -1,8 +1,8 @@
 package security;
 
-import models.Activation;
-import models.LinkedAccount;
-import models.Resetation;
+import models.securesocial.Activation;
+import models.securesocial.LinkedAccount;
+import models.securesocial.Resetation;
 import play.libs.Codec;
 import securesocial.provider.ProviderType;
 import securesocial.provider.SocialUser;
@@ -50,7 +50,10 @@ public class AppUserService implements UserServiceDelegate {
         if (linkedAccount == null) {
             linkedAccount = new SocialUserToLinkedAccount().transform(user);
         } else {
-            //reseta senha
+            //TRATAR BEM AQUI, POIS UM USUARIO QUERENDO LOGAR COM UMA REDE SOCIAL JA CADASTRADA NAO ESTA EXIBINDO ERRO
+            //O CODIGO AI EM BAIXO NAO EH SO PARA QUANDO FOR PASSWORD
+            // TRATAR O CASOp
+            //Quando vier do resetar senha, fazer a alteração apropriada da senha do usuário
             if (!StringUtils.isEmpty(user.password) && !user.password.equals(linkedAccount.password)) {
                 linkedAccount.password = user.password;
             }

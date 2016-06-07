@@ -1,0 +1,81 @@
+#{extends 'main.html' /}
+#{set title: messages.get('application.account') /}
+
+
+</div>
+
+
+<div style="margin-left: 300px; margin-top: 10px">
+
+    <table class="user-table">
+        <tr>
+            <td><img src=${user.avatarUrl}></td>
+            <td style="color: blue">${user.displayName}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>${user.email}</td>
+        </tr>
+        <tr>
+            <td>CPF</td>
+            <td>${user.cpf}</td>
+        </tr>
+        <tr>
+            <td>RG</td>
+            <td>${user.rg}</td>
+        </tr>
+        <tr>
+            <td>Sexo</td>
+            <td>${user.gender}</td>
+        </tr>
+        <tr>
+            <td>Data de Nascimento</td>
+            <td>${user.birthDateDate}</td>
+        </tr>
+    </table>
+
+    <div style="margin-left: 85px">Adicionar Conta</div>
+    <table style="margin-left: 80px">
+    #{if !providerTypes?.isEmpty()}
+        <tr>
+            #{list items:providerTypes, as:'providerType'}
+                <td><a style="display: inline-block; height: 35px; width: 35px"
+                       class="${providerType}" href="@{Application.newLinkedAccount(providerType)}"></a>
+                </td>
+            #{/list}
+        </tr>
+    #{/if}
+    </table>
+
+#{if linkedAccounts}
+    <div style="margin-left: 85px">Remover Conta</div>
+    <table style="margin-left: 80px">
+        <tr>
+            #{list items:linkedAccounts.entrySet(), as:'linkedAccount'}
+            %{ account = linkedAccount.getValue() }%
+                <td class="${account.provider} provider-exclude-icon">
+
+                    <a class="provider-exclude-icon-close" style=""
+                       href="@{Application.unLinkAccount(account.id)}"> </a>
+                </td>
+            #{/list}
+        </tr>
+    </table>
+#{/if}
+
+</div>
+
+<script>
+    $(".provider-exclude-icon-close").hover(
+            function () {
+                $(this).parent().addClass("icon");
+            }, function () {
+                $(this).parent().removeClass("icon");
+            }
+    );
+
+</script>
+
+
+</head>
+

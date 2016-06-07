@@ -1,0 +1,85 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+
+//TODO usar para gerenciar as configuracoes de conta do usuario
+#{if flash.error}
+<span style="background: darkred; color: white" class="error">${flash.error}</span>
+#{/if}
+#{if lAcc}
+<div class="span12 columns">
+    <div class="page-header">
+        <h2><img src="${lAcc?.avatarUrl}" width="40px" height="40px"/> Welcome ${lAcc?.displayName}</h2>
+    </div>
+${lAcc.user.roles}
+    <div class="clearfix">
+        <h2>User details</h2>
+
+        User id: ${lAcc?.userId}<br>
+        Logged in from: ${lAcc?.provider}<br>
+        Email: ${lAcc?.email}<br>
+        Authentication method: ${lAcc.authMethod}
+
+        #{if lAcc.authMethod == securesocial.provider.AuthenticationMethod.OAUTH1 ||
+        lAcc.authMethod == securesocial.provider.AuthenticationMethod.OPENID_OAUTH_HYBRID}
+            <h2>OAuth 1</h2>
+            Token = ${user.token}<br>
+            Secret = ${user.secret}
+        #{/if}
+
+        #{if lAcc.authMethod == securesocial.provider.AuthenticationMethod.OAUTH2}
+            <h2>OAuth 2</h2>
+            Access token = ${lAcc.accessToken}
+        #{/if}
+
+        <h2>Deadbolt Integration</h2>
+
+        <p>The link below is protected using deadbolt. Only twitter users can see it.</p>
+    *{<a href="@{Authentication.onlyTwitterUsers}">try me</a>}*
+        <a href="@{CRUD.index()}">try me</a>
+    </div>
+
+
+    <br/>
+    -------------------------------
+    <br/>
+
+    #{if !providerTypes?.isEmpty()}
+    ${providerTypes}
+        <table>
+            <tr>
+                <td colspan="3">Add new linked account</td>
+            </tr>
+            <tr>
+                #{list items:providerTypes, as:'providerType'}
+                    <a href="@{Application.newLinkedAccount(providerType)}">${providerType}</a>
+                    <option value="${providerType}">${providerType}</option>
+                #{/list}
+            </tr>
+        </table>
+    #{/if}
+
+    <table>
+        #{list items:linkedAccounts.entrySet(), as:'linkedAccount'}
+        %{ account = linkedAccount.getValue() }%
+            <tr>
+                <td>${account.provider}</td>
+                <td>${account.id}</td>
+                <td><img src="${account.avatarUrl}"/></td>
+                <td>${account.displayName}</td>
+                <td><a href="@{Application.unLinkAccount(account.id)}">Unlink</a></td>
+            </tr>
+        #{/list}
+    </table>
+
+
+    <div class="well" style="margin-top: 15px;">
+    *{<a href="@{securesocial.SecureSocial.logout}" class="btn primary ">Logout</a>}*
+        <a href="@{RootController.logout()}" class="btn primary ">Logout</a>
+    </div>
+</div>
+
+#{/if}
+
+
+

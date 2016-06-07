@@ -1,6 +1,7 @@
 package security;
 
-import models.LinkedAccount;
+
+import models.securesocial.LinkedAccount;
 import securesocial.provider.OAuth1Provider;
 import securesocial.provider.SocialUser;
 import securesocial.provider.UserId;
@@ -10,10 +11,8 @@ import utils.Transformer;
  * @author Steve Chaloner (steve@objectify.be)
  */
 
-public class LinkedAccountToSocialUser implements Transformer<LinkedAccount, SocialUser>
-{
-    public SocialUser transform(LinkedAccount linkedAccount)
-    {
+public class LinkedAccountToSocialUser implements Transformer<LinkedAccount, SocialUser> {
+    public SocialUser transform(LinkedAccount linkedAccount) {
         SocialUser socialUser = new SocialUser();
         socialUser.id = new UserId();
         socialUser.id.id = linkedAccount.userId;

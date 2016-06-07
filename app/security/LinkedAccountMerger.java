@@ -1,17 +1,16 @@
 package security;
 
-import models.LinkedAccount;
+
+import models.securesocial.LinkedAccount;
 import securesocial.provider.SocialUser;
 import utils.Merger;
 
 /**
  * @author Steve Chaloner (steve@objectify.be)
  */
-public class LinkedAccountMerger implements Merger<LinkedAccount, SocialUser>
-{
+public class LinkedAccountMerger implements Merger<LinkedAccount, SocialUser> {
     public LinkedAccount merge(LinkedAccount linkedAccount,
-                               SocialUser socialUser)
-    {
+                               SocialUser socialUser) {
         linkedAccount.userId = socialUser.id.id;
         linkedAccount.provider = socialUser.id.provider;
         linkedAccount.accessToken = socialUser.accessToken;

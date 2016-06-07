@@ -1,6 +1,6 @@
 package security;
 
-import models.LinkedAccount;
+import models.securesocial.LinkedAccount;
 import securesocial.provider.SocialUser;
 import utils.Transformer;
 

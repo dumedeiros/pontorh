@@ -1,0 +1,401 @@
+/*Defines Load Image as css*/
+
+/**LOADING*/
+.cssload-container {
+    position: relative;
+    width: 110px;
+    height: 126px;
+    overflow: hidden;
+    margin: 0px auto;
+}
+
+.cssload-container .cssload-item {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 27px;
+    height: 27px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25);
+
+}
+
+.cssload-container .cssload-ventilator {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    animation: cssload-spin 0.8s ease-in-out infinite reverse;
+    -o-animation: cssload-spin 0.8s ease-in-out infinite reverse;
+    -ms-animation: cssload-spin 0.8s ease-in-out infinite reverse;
+    -webkit-animation: cssload-spin 0.8s ease-in-out infinite reverse;
+    -moz-animation: cssload-spin 0.8s ease-in-out infinite reverse;
+    transition: all 0.16s ease;
+    -o-transition: all 0.16s ease;
+    -ms-transition: all 0.16s ease;
+    -webkit-transition: all 0.16s ease;
+    -moz-transition: all 0.16s ease;
+}
+
+.cssload-container .cssload-ventilator:before, .cssload-container .cssload-ventilator:after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border-radius: 50%;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25);
+    -o-box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25);
+    -ms-box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25);
+    animation: cssload-shapeit 0.395s ease infinite alternate;
+    -o-animation: cssload-shapeit 0.395s ease infinite alternate;
+    -ms-animation: cssload-shapeit 0.395s ease infinite alternate;
+    -webkit-animation: cssload-shapeit 0.395s ease infinite alternate;
+    -moz-animation: cssload-shapeit 0.395s ease infinite alternate;
+    transition: all 0.16s ease;
+    -o-transition: all 0.16s ease;
+    -ms-transition: all 0.16s ease;
+    -webkit-transition: all 0.16s ease;
+    -moz-transition: all 0.16s ease;
+    content: '';
+}
+
+.cssload-container .cssload-ventilator:before {
+    left: -125%;
+    border-left: 1px solid rgb(74, 85, 100);
+}
+
+.cssload-container .cssload-ventilator:after {
+    right: -125%;
+    border-right: 1px solid rgb(74, 85, 100);
+}
+
+@keyframes cssload-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes cssload-spin {
+    from {
+        -o-transform: rotate(0deg);
+    }
+    to {
+        -o-transform: rotate(360deg);
+    }
+}
+
+@-ms-keyframes cssload-spin {
+    from {
+        -ms-transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes cssload-spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes cssload-spin {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes cssload-shapeit {
+    from {
+        border-radius: 50%;
+    }
+    to {
+        border-radius: 0px;
+    }
+}
+
+@-o-keyframes cssload-shapeit {
+    from {
+        border-radius: 50%;
+    }
+    to {
+        border-radius: 0px;
+    }
+}
+
+@-ms-keyframes cssload-shapeit {
+    from {
+        border-radius: 50%;
+    }
+    to {
+        border-radius: 0px;
+    }
+}
+
+@-webkit-keyframes cssload-shapeit {
+    from {
+        border-radius: 50%;
+    }
+    to {
+        border-radius: 0px;
+    }
+}
+
+@-moz-keyframes cssload-shapeit {
+    from {
+        border-radius: 50%;
+    }
+    to {
+        border-radius: 0px;
+    }
+}
+
+.cssload-loader {
+    position: relative;
+    width: 2.5em;
+    height: 2.5em;
+    transform: rotate(165deg);
+    display: block;
+    margin: auto;
+}
+
+.cssload-loader:before, .cssload-loader:after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 0.25em;
+    transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+}
+
+.cssload-loader:before {
+    animation: before 2.3s infinite;
+    -o-animation: before 2.3s infinite;
+    -ms-animation: before 2.3s infinite;
+    -webkit-animation: before 2.3s infinite;
+    -moz-animation: before 2.3s infinite;
+}
+
+.cssload-loader:after {
+    animation: after 2.3s infinite;
+    -o-animation: after 2.3s infinite;
+    -ms-animation: after 2.3s infinite;
+    -webkit-animation: after 2.3s infinite;
+    -moz-animation: after 2.3s infinite;
+}
+
+@keyframes before {
+    0% {
+        width: 0.5em;
+        box-shadow: 1em -0.5em rgba(74, 85, 100, 0.75), -1em 0.5em rgba(189, 189, 189, 0.75);
+    }
+    35% {
+        width: 2.5em;
+        box-shadow: 0 -0.5em rgba(74, 85, 100, 0.75), 0 0.5em rgba(189, 189, 189, 0.75);
+    }
+    70% {
+        width: 0.5em;
+        box-shadow: -1em -0.5em rgba(74, 85, 100, 0.75), 1em 0.5em rgba(189, 189, 189, 0.75);
+    }
+    100% {
+        box-shadow: 1em -0.5em rgba(74, 85, 100, 0.75), -1em 0.5em rgba(189, 189, 189, 0.75);
+    }
+}
+
+@-o-keyframes before {
+    0% {
+        width: 0.5em;
+        box-shadow: 1em -0.5em rgba(74, 85, 100, 0.75), -1em 0.5em rgba(189, 189, 189, 0.75);
+    }
+    35% {
+        width: 2.5em;
+        box-shadow: 0 -0.5em rgba(74, 85, 100, 0.75), 0 0.5em rgba(189, 189, 189, 0.75);
+    }
+    70% {
+        width: 0.5em;
+        box-shadow: -1em -0.5em rgba(74, 85, 100, 0.75), 1em 0.5em rgba(189, 189, 189, 0.75);
+    }
+    100% {
+        box-shadow: 1em -0.5em rgba(74, 85, 100, 0.75), -1em 0.5em rgba(189, 189, 189, 0.75);
+    }
+}
+
+@-ms-keyframes before {
+    0% {
+        width: 0.5em;
+        box-shadow: 1em -0.5em rgba(74, 85, 100, 0.75), -1em 0.5em rgba(189, 189, 189, 0.75);
+    }
+    35% {
+        width: 2.5em;
+        box-shadow: 0 -0.5em rgba(74, 85, 100, 0.75), 0 0.5em rgba(189, 189, 189, 0.75);
+    }
+    70% {
+        width: 0.5em;
+        box-shadow: -1em -0.5em rgba(74, 85, 100, 0.75), 1em 0.5em rgba(189, 189, 189, 0.75);
+    }
+    100% {
+        box-shadow: 1em -0.5em rgba(74, 85, 100, 0.75), -1em 0.5em rgba(189, 189, 189, 0.75);
+    }
+}
+
+@-webkit-keyframes before {
+    0% {
+        width: 0.5em;
+        box-shadow: 1em -0.5em rgba(74, 85, 100, 0.75), -1em 0.5em rgba(189, 189, 189, 0.75);
+    }
+    35% {
+        width: 2.5em;
+        box-shadow: 0 -0.5em rgba(74, 85, 100, 0.75), 0 0.5em rgba(189, 189, 189, 0.75);
+    }
+    70% {
+        width: 0.5em;
+        box-shadow: -1em -0.5em rgba(74, 85, 100, 0.75), 1em 0.5em rgba(189, 189, 189, 0.75);
+    }
+    100% {
+        box-shadow: 1em -0.5em rgba(74, 85, 100, 0.75), -1em 0.5em rgba(189, 189, 189, 0.75);
+    }
+}
+
+@-moz-keyframes before {
+    0% {
+        width: 0.5em;
+        box-shadow: 1em -0.5em rgba(74, 85, 100, 0.75), -1em 0.5em rgba(189, 189, 189, 0.75);
+    }
+    35% {
+        width: 2.5em;
+        box-shadow: 0 -0.5em rgba(74, 85, 100, 0.75), 0 0.5em rgba(189, 189, 189, 0.75);
+    }
+    70% {
+        width: 0.5em;
+        box-shadow: -1em -0.5em rgba(74, 85, 100, 0.75), 1em 0.5em rgba(189, 189, 189, 0.75);
+    }
+    100% {
+        box-shadow: 1em -0.5em rgba(74, 85, 100, 0.75), -1em 0.5em rgba(189, 189, 189, 0.75);
+    }
+}
+
+@keyframes after {
+    0% {
+        height: 0.5em;
+        box-shadow: 0.5em 1em rgba(0, 0, 69, 0.75), -0.5em -1em rgba(0, 0, 0, 0.75);
+    }
+    35% {
+        height: 2.5em;
+        box-shadow: 0.5em 0 rgba(0, 0, 69, 0.75), -0.5em 0 rgba(0, 0, 0, 0.75);
+    }
+    70% {
+        height: 0.5em;
+        box-shadow: 0.5em -1em rgba(0, 0, 69, 0.75), -0.5em 1em rgba(0, 0, 0, 0.75);
+    }
+    100% {
+        box-shadow: 0.5em 1em rgba(0, 0, 69, 0.75), -0.5em -1em rgba(0, 0, 0, 0.75);
+    }
+}
+
+@-o-keyframes after {
+    0% {
+        height: 0.5em;
+        box-shadow: 0.5em 1em rgba(0, 0, 69, 0.75), -0.5em -1em rgba(0, 0, 0, 0.75);
+    }
+    35% {
+        height: 2.5em;
+        box-shadow: 0.5em 0 rgba(0, 0, 69, 0.75), -0.5em 0 rgba(0, 0, 0, 0.75);
+    }
+    70% {
+        height: 0.5em;
+        box-shadow: 0.5em -1em rgba(0, 0, 69, 0.75), -0.5em 1em rgba(0, 0, 0, 0.75);
+    }
+    100% {
+        box-shadow: 0.5em 1em rgba(0, 0, 69, 0.75), -0.5em -1em rgba(0, 0, 0, 0.75);
+    }
+}
+
+@-ms-keyframes after {
+    0% {
+        height: 0.5em;
+        box-shadow: 0.5em 1em rgba(0, 0, 69, 0.75), -0.5em -1em rgba(0, 0, 0, 0.75);
+    }
+    35% {
+        height: 2.5em;
+        box-shadow: 0.5em 0 rgba(0, 0, 69, 0.75), -0.5em 0 rgba(0, 0, 0, 0.75);
+    }
+    70% {
+        height: 0.5em;
+        box-shadow: 0.5em -1em rgba(0, 0, 69, 0.75), -0.5em 1em rgba(0, 0, 0, 0.75);
+    }
+    100% {
+        box-shadow: 0.5em 1em rgba(0, 0, 69, 0.75), -0.5em -1em rgba(0, 0, 0, 0.75);
+    }
+}
+
+@-webkit-keyframes after {
+    0% {
+        height: 0.5em;
+        box-shadow: 0.5em 1em rgba(0, 0, 69, 0.75), -0.5em -1em rgba(0, 0, 0, 0.75);
+    }
+    35% {
+        height: 2.5em;
+        box-shadow: 0.5em 0 rgba(0, 0, 69, 0.75), -0.5em 0 rgba(0, 0, 0, 0.75);
+    }
+    70% {
+        height: 0.5em;
+        box-shadow: 0.5em -1em rgba(0, 0, 69, 0.75), -0.5em 1em rgba(0, 0, 0, 0.75);
+    }
+    100% {
+        box-shadow: 0.5em 1em rgba(0, 0, 69, 0.75), -0.5em -1em rgba(0, 0, 0, 0.75);
+    }
+}
+
+@-moz-keyframes after {
+    0% {
+        height: 0.5em;
+        box-shadow: 0.5em 1em rgba(0, 0, 69, 0.75), -0.5em -1em rgba(0, 0, 0, 0.75);
+    }
+    35% {
+        height: 2.5em;
+        box-shadow: 0.5em 0 rgba(0, 0, 69, 0.75), -0.5em 0 rgba(0, 0, 0, 0.75);
+    }
+    70% {
+        height: 0.5em;
+        box-shadow: 0.5em -1em rgba(0, 0, 69, 0.75), -0.5em 1em rgba(0, 0, 0, 0.75);
+    }
+    100% {
+        box-shadow: 0.5em 1em rgba(0, 0, 69, 0.75), -0.5em -1em rgba(0, 0, 0, 0.75);
+    }
+}
