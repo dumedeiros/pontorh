@@ -2,6 +2,7 @@ package extensions;
 
 import play.templates.JavaExtensions;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Locale;
@@ -13,6 +14,8 @@ public class DateTimeExtension extends JavaExtensions {
      * Default time format: 10:30, p. ex.
      */
     private static final String DEFAULT_TIME_FORMAT = "%02d:%02d";
+    private static final String SABADO = "Sábado";
+    private static final String DOMIGO = "Domingo";
 
     /**
      * Get the name of the day
@@ -52,5 +55,11 @@ public class DateTimeExtension extends JavaExtensions {
                         TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(l)), // The change is in this line
                 TimeUnit.MILLISECONDS.toSeconds(l) -
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l)));
+    }
+
+    //OBS Método pronto para se trabalhar com feriados
+    public static boolean isFreeDay(LocalDate s) {
+        DayOfWeek dw = s.getDayOfWeek();
+        return (dw == DayOfWeek.SATURDAY || dw == DayOfWeek.SUNDAY);
     }
 }

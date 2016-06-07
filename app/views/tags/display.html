@@ -12,6 +12,7 @@
 
         <tbody>
         #{list items:_tree, as:'wd'}
+        %{ weekDay = wd.key.dayalize() }%
         <tr>
             <td>
                 #{if wd.value?.message}
@@ -24,8 +25,8 @@
                 #{/if}
             </td>
             <td class="tooltipWrapper" style=" text-align: center;">
-            ${wd.key}
-                <span class="tooltipTop">${wd.key.dayalize()}</span>
+                <span class="${wd.key.isFreeDay() ? 'red' : '' }">${wd.key}</span>
+                <span class="tooltipTop">${weekDay}</span>
             </td>
             <td>
             ${wd.value?.periods ? '' : '----' }

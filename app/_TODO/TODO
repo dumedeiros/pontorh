@@ -2,14 +2,12 @@
 
 
     // TODO =-> PONTO SYSTEM marcacao de entrada sem saida ficar alinhado à esquerda OK
-    //TODO text area border com cor diferente OK
     //Fazer tratamento das mensagens:
     //Fix: dia 30 de abril ta exibindo 1 de maio na tabela da semana
-    //Ideias, fazer ajax de observacao lendo a msg no lado cliente (msgs ja sao carregadas), ajax somente para editar
-    //__ buscar capo data-id e alterardata-wdcomment
-    // Apos a mensagem ser editada e se a msg for vazia, remover o icone
+
+
     //Tratar botao voltar para nao exibir a pagina anterior -> com javascrtipt document Ready verificando os cookies?
-    // Adicionar cores nos finais de semana (vermelho)
+
     //Colocar a class active nas abas principais (Inicio & Conta)
     //Criar formulario de edicao dos dados dos usuarios
 
@@ -17,15 +15,12 @@
 
 -> Verificar em production o salvar do username e password nos browsers ==> so ta faltando o SAFARI
 
--> Ao inves de "Não é possível remover a unica forma de se realizar login"
-    nao habilitar o link nem permitir a execucao pela barra de endereço
-
 -> Fazer logica para adicionar um username e password a uma conta rede social já adicionada
 
 
 -> verificar as mensagens duplicadas em messages
 -> alterar interface de login (removendo o SecureSocialModule, por exemplo
--> fazer backup e vinclular com ponto System
+
 
 
 
@@ -36,7 +31,13 @@
 -> testar novamente pq o yahoo ta dando errado ==> pq o callback do dominio no yahoo development console não permite
 -> Botao submit no reset Password ==> alterado para "enviar"
 -> Tratar os pending Jobs - Tirar 24h e colocar todo horario num dia (pode dar problema de servidor e nao atualizar no dia)
-   _ ou a cada periodo de tempo (cada 5 horas?) ==> Periodo de 10h
+   _ ou a cada periodo de tempo (cada 5 horas?) ==> 2a opcao = Periodo de 10h
+-> fazer backup e vinclular com ponto RH
+-> Adicionar cores nos finais de semana (vermelho) ==> Criou-se um JavaExtension em DateTimeExtension - isFreeDay()
+   _ para verificar se é sábado ou domingo. Método aberto para trabalha> com feriados tb
+-> text area border com cor diferente ==> usando bootstrap
+-> Ideias, fazer ajax de observacao lendo a msg no lado cliente (msgs ja sao carregadas), ajax somente para editar
+   __ buscar capo data-id e alterarar data-wdcomment
 
-
+-> Apos a mensagem ser editada e se a msg for vazia, remover o icone ==> HtmlElement.addClass/removeClass(not-displayable)
 legenda: ==> soluçao / comentário

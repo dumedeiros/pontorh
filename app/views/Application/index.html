@@ -1,91 +1,91 @@
 #{extends 'main.html' /}
 #{set title:'Ponto RH' /}
 
-    <!--*FORMREGISTER-->
-    <form action="@{controllers.Application.registerPeriod}" name="registerForm">
-        <section>
-            <table class="no-flash fashion">
-                <thead>
-                <tr>
-                    <th colspan="2" style="text-align: center">Registro De Horário de Entrada</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td style="width: 120px">Data:</td>
-                    <td>${today.format()}</td>
-                </tr>
-                <tr>
-                *{TODO} alterar para saber se deve colocar*}*
-                #{if timeIn}
-                    <td>Hora de Entrada:</td>
-                    <td>${timeIn}</td>
-                #{/if}
-                </tr>
-                <tr>
-                    <td>Hora:</td>
-                    <td id="clock"></td>
-                </tr>
-                <tr>
-                    <td> OBS:</td>
-                    <td style="padding: 5px 20px 5px 0px">
-                        <div class="input-group">
+<!--*FORMREGISTER-->
+<form action="@{controllers.Application.registerPeriod}" name="registerForm">
+    <section>
+        <table class="no-flash fashion">
+            <thead>
+            <tr>
+                <th colspan="2" style="text-align: center">Registro De Horário de Entrada</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td style="width: 120px">Data:</td>
+                <td>${today.format()}</td>
+            </tr>
+            <tr>
+            *{TODO} alterar para saber se deve colocar*}*
+            #{if timeIn}
+                <td>Hora de Entrada:</td>
+                <td>${timeIn}</td>
+            #{/if}
+            </tr>
+            <tr>
+                <td>Hora:</td>
+                <td id="clock"></td>
+            </tr>
+            <tr>
+                <td> OBS:</td>
+                <td style="padding: 5px 20px 5px 0px">
+                    <div class="input-group">
                                         <textarea tabindex="1" name="msg" class="form-control custom-control" rows="3"
                                                   style="resize:none"></textarea>
                                         <span style="margin-right: 10px" id="send" tabindex="2"
                                               onclick="registerForm.submit()" type="submit"
                                               class="input-group-addon btn btn-primary"> Registrar</span>
-                        </div>
+                    </div>
 
-                    </td>
-                </tr>
-                *{<tr>}*
-                *{<td colspan="2" style="text-align: center"><input type="submit" value="Registrar"}*
-                *{class="btn btn-primary"></input></td>}*
-                *{</tr>}*
-                </tbody>
-            </table>
+                </td>
+            </tr>
+            *{<tr>}*
+            *{<td colspan="2" style="text-align: center"><input type="submit" value="Registrar"}*
+            *{class="btn btn-primary"></input></td>}*
+            *{</tr>}*
+            </tbody>
+        </table>
 
-        </section>
+    </section>
+</form>
+
+
+<div style="margin-top: 100px">
+
+    <!--*FORMFILTER-->
+    <form action="@{controllers.Application.filterDate}" name="filterDateForm">
+        <div class="input-group" style="float: right; width: 145px; left: -150px">
+            <input name="date" id="date-picker" type="text" class="form-control custom-control"
+                   value="${date?.format()}">
+                            <span onclick="filterDateForm.submit()"
+                                  class="input-group-addon btn btn-primary"> Ok</span>
+        </div>
     </form>
 
 
-    <div style="margin-top: 100px">
-
-        <!--*FORMFILTER-->
-        <form action="@{controllers.Application.filterDate}" name="filterDateForm">
-            <div class="input-group" style="float: right; width: 145px; left: -150px">
-                <input name="date" id="date-picker" type="text" class="form-control custom-control"
-                       value="${date?.format()}">
-                            <span onclick="filterDateForm.submit()"
-                                  class="input-group-addon btn btn-primary"> Ok</span>
-            </div>
-        </form>
-
-
-        <!--*TABS-->
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist" style="margin-left: 150px; width: 70%">
-            <li role="presentation" class="active">
-                <a href="#week" aria-controls="week" role="tab" data-toggle="tab">Horários da Semana</a>
-            </li>
-            <li role="presentation"><a href="#month" aria-controls="month" role="tab" data-toggle="tab">Horários
-                do Mês</a>
-            </li>
-        </ul>
+    <!--*TABS-->
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist" style="margin-left: 150px; width: 70%">
+        <li role="presentation" class="active">
+            <a href="#week" aria-controls="week" role="tab" data-toggle="tab">Horários da Semana</a>
+        </li>
+        <li role="presentation"><a href="#month" aria-controls="month" role="tab" data-toggle="tab">Horários
+            do Mês</a>
+        </li>
+    </ul>
 
 
-        <!--*TABSPANEL-->
-        <!-- Tab panes -->
-        <div class="tab-content" style="margin-top: -40px">
+    <!--*TABSPANEL-->
+    <!-- Tab panes -->
+    <div class="tab-content" style="margin-top: -40px">
 
-        #{display tree:wdWeekTree, as:'week', time:wTime /}
+    #{display tree:wdWeekTree, as:'week', time:wTime /}
 
             #{display tree:wdMonthTree, as:'month', time:mTime /}
 
-        </div>
-
     </div>
+
+</div>
 </div>
 
 #{modal /}
@@ -95,6 +95,7 @@
     $(document).ready(function () {
         $("#send").focus();  //Focus on register button to allow the user register quickly
         startTime();
+        console.log(document.cookie);
     });
 
     //Show alert in modal window
@@ -181,9 +182,15 @@
                     $("#modalPanel").modal('hide');
 
                     //Update
+                    //Id pego do modal para indentificar o elemento a ser atualizado
                     var wdid = elementHolder.attr('data-wdid')
                     var el = $('img[data-wdid=' + wdid + ']');    //elements that hold the comments (week and/or month)
                     $(el).attr('data-wdcomment', d.data.comment);
+                    if (isStringEmpty(d.data.comment)) {
+                        $(el).addClass('not-displayable');
+                    } else {
+                        $(el).removeClass('not-displayable');
+                    }
                     showNotification();
                 },
                 error: function () {
@@ -283,6 +290,17 @@
     //    setTimeout(function() {
     //        $.notifyClose();
     //    }, 3000);
+
+    function isStringEmpty(s) {
+        if (s == null) {
+            return true;
+        } else {
+            if (s.length == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 </script>
 

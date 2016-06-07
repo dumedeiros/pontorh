@@ -21,9 +21,9 @@ public class Ajax extends Controller {
      */
     public static void editComment(Long wdid, String commentMsg) {
         WorkDay p = WorkDay.find("byId", wdid).first();
-        p.message = commentMsg;
+        p.message = commentMsg.trim();
         p.save();
-        flash.put("comment", commentMsg);
+        flash.put("comment", p.message);
         //Send flash to be read in view
         renderJSON(flash);
     }
