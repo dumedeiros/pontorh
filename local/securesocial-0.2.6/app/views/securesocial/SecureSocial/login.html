@@ -84,17 +84,11 @@
 
 
 <div class="clearfix">
-    <p>&{'securesocial.signUp'} #{a @securesocial.UsernamePasswordController.signUp()}&{'securesocial.here'}#{/a}</p>
+*{<p>&{'securesocial.signUp'} #{a @securesocial.UsernamePasswordController.signUp()}&{'securesocial.here'}#{/a}</p>}*
+    <p>#{a @securesocial.UsernamePasswordController.signUp()}&{'securesocial.createaccount'}#{/a}</p>
 
     <p>#{a @securesocial.PasswordResetController.resetPassword()}&{'securesocial.forgotPassword'}#{/a}</p>
 </div>
 #{/if}
 </div>
 
-
-<script>
-
-    $(document).ready(function () {
-        console.log(document.cookie);
-    });
-</script>

@@ -11,8 +11,11 @@ forbidden=Acesso Negado
 #
 # Login
 #
-securesocial.loginTitle=Log In
-securesocial.login=Log In
+
+securesocial.createaccount=Crie a sua conta
+
+securesocial.loginTitle=Login
+securesocial.login=Login
 securesocial.clickOnYourAccount=Use sua conta de uma das seguintes redes para se logar.
 securesocial.useEmailAndPassword=Ou entre com o usuário e senha
 securesocial.email=Endereço de Email
@@ -39,6 +42,10 @@ securesocial.loadError=Houve um erro ao carregar os dados. Por favor, tente nova
 #
 # SignUp
 #
+
+securesocial.signUpTitleCad=Cadastro
+
+
 securesocial.signUpTitle=Inscreva-se
 securesocial.signUpLabel=Complete o seguinte formulário:
 securesocial.userName=Nome de usuário
@@ -91,7 +98,7 @@ securesocial.invalidResetTitle=A senha de redefinição não é válida
 securesocial.invalidResetLink=O link de reativação de senha não é vlálido
 securesocial.resetError=Houve um erro ao resetar a sua senha. Por favor, tente novamente
 securesocial.resetEmailNotRegistred=Esse email não está cadastrado no sistema
-securesocial.forgotPassword=Esquece a senha?
+securesocial.forgotPassword=Esqueceu a senha?
 securesocial.dear=Prezado(a) %s,
 securesocial.resetEmailText=Este e-mail é uma solicitação de recuperação de senha.\
 <p>Para redefinir sua senha clique no link abaixo e informe sua nova senha. Este email é válido por 48h. Após esse período, você deverá solicitar a redefinição de senha novamente.</p> <p>Para redefinir sua senha, clique no link: <a href="%s">Redefinir senha</a></p>\<p>Se desejar, copie e cole o link em seu navegador de preferência.</p>\

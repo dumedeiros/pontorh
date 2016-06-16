@@ -4,6 +4,7 @@ import net.sf.oval.Validator;
 import net.sf.oval.configuration.annotation.AbstractAnnotationCheck;
 import net.sf.oval.context.OValContext;
 import net.sf.oval.exception.OValException;
+import org.apache.commons.lang.StringUtils;
 
 public class CPFCheck extends AbstractAnnotationCheck<Cpf> {
 
@@ -61,7 +62,7 @@ public class CPFCheck extends AbstractAnnotationCheck<Cpf> {
      * @param cpf
      * @return
      */
-    private static boolean verifyIfDigitEquals(String cpf) {
+    private static boolean digitsAreEquals(String cpf) {
         char firstDig = cpf.charAt(0);
 //        char primDig = '0'; // Change for the line above to accept the 00000000000 which is really valid
         char[] charCpf = cpf.toCharArray();
@@ -75,6 +76,7 @@ public class CPFCheck extends AbstractAnnotationCheck<Cpf> {
 
     /**
      * Verifica se um CPF é válido
+     * -> Cpf null é válido, para isso utiliza-se @Required ou @NotNull
      *
      * @param cpf
      * @return
@@ -82,8 +84,12 @@ public class CPFCheck extends AbstractAnnotationCheck<Cpf> {
     public static boolean isValidCPF(String cpf) {
 
 
-        if ((cpf == null) || (!cpf.matches(CPF_PARTTERN)) || verifyIfDigitEquals(cpf)) {
-            return false;
+        if (StringUtils.isEmpty(cpf)) {
+            return true;
+        } else {
+            if (((!cpf.matches(CPF_PARTTERN)) || digitsAreEquals(cpf))) {
+                return false;
+            }
         }
         cpf = removeChars(cpf);
         Integer firstDigit = calcDigit(cpf.substring(0, 9));

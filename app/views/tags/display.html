@@ -15,17 +15,16 @@
         %{ weekDay = wd.key.dayalize() }%
         <tr>
             <td>
-                #{if wd.value?.message}
-                    <img data-toggle="modal" data-target="#modalPanel"
-                         data-wdcomment="${wd.value.message}"
-                         data-wdid="${wd.value.id}"
-                         class="user-comment"
-                         style="margin: -10px 0 0px 0;position: absolute"
-                         src="@{'/public/images/user_comment.png'}">
-                #{/if}
+            *{//User comment icon}*
+                <img data-toggle="modal" data-target="#modalShowPanel"
+                     data-wdid="wd-comment-${wd.key}"
+                     class="user-comment ${wd.value?.message ? '' : 'not-displayable'}"
+                     style="margin: -10px 0 0px 0;position: absolute"
+                     src="@{'/public/images/user_comment.png'}"/>
             </td>
+        *{//Data e Tooltipday}*
             <td class="tooltipWrapper" style=" text-align: center;">
-                <span class="${wd.key.isFreeDay() ? 'red' : '' }">${wd.key}</span>
+                <span class="${wd.key.isFreeDay() ? 'red' : '' }">${wd.key.formatLocalDateLocale()}</span>
                 <span class="tooltipTop">${weekDay}</span>
             </td>
             <td>
@@ -36,13 +35,15 @@
                     <span>${p.dateOut?.format('HH:mm')}</span><br>
                 #{/list}
             </td>
-            <td style=" text-align: center">
-            ${hr}
-                #{if wd.key}
-                *{TODO alterar para formatime()}*
-                ${wd.value?.registredTime?.formatime("%02d:%02d:%02d")}
-                #{/if}
-                #{else }---#{/else}
+            <td style="text-align: center">
+                <span>${ wd.value?.registredTime ?  wd.value?.registredTime?.formatime("%02d:%02d:%02d") : '----'}</span>
+                <img data-toggle="modal"
+                     data-target="#modalEditPanel"
+                     data-wdcomment="${wd?.value?.message}"
+                     data-wdid="${wd.key}"
+                     class="edit-comment"
+                     style="display:block; margin: -20px 0 0px 200px;position: absolute"
+                     src="@{'/public/images/edit-comment2.png'}"/>
             </td>
         </tr>
         #{/list}
@@ -52,10 +53,21 @@
             <td colspan="3" style="font-weight: bold;text-align: right;">Total
                 Registrado ${_as == 'week' ? 'na semana: ' : 'no mês:   '}
             </td>
-            <td align="right" style="font-weight: bold;">
+            <td align="right" style="font-weight: bold; text-align: left; padding-left: 130px">
             *{TODO alterar para formatime()}*
                 <span> ${_time.formatime("%02d:%02d:%02d")} </span>
             </td>
+        </tr>
+        <tr>
+        <td style="padding: 8px" colspan="4">
+        #{if _as == 'week'}
+            <a href="@{Application.monthReport(_reportDate)}" class="btn btn-info">Relatório</a>
+        </td>
+        #{/if}
+        #{else }
+            <a href="#" class="btn btn-info">Relatório</a></td>
+        #{/else}
+
         </tr>
         </tfoot>
     </table>

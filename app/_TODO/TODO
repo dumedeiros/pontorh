@@ -1,5 +1,17 @@
 //TODO
 
+Enviar emails em FUTURE (Asynchronous Job)
+Em  DateTimeExtensio
+ public static String formatLocalDateLocale(LocalDate date) {
+  colocar locale
+
+
+// Formato data em portugues
+
+//Colocar horario entrada/saida
+// Colocar botao de adicionar msgs
+//adicionar o saldo de debito/credito
+Trocar String utils por Stringutils  do apache Tomcat
 
     // TODO =-> PONTO SYSTEM marcacao de entrada sem saida ficar alinhado à esquerda OK
     //Fazer tratamento das mensagens:

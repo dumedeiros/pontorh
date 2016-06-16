@@ -1,0 +1,40 @@
+<!--*MODAL-->
+<!--Ponto Comment Editor Modal Window -->
+<div class="modal fade" id="modalEditPanel" tabindex="-1" role="dialog" aria-labelledby="modalPanelLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+
+                <div style="background: blue">
+                    <div class="cssload-loader elm-hidden" style="position: absolute; margin: -14px 0 0 -20px"></div>
+                </div>
+
+                <div class="alert alert-danger" role="alert" style="display: none">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    Ocorreu um erro. Tente novamente!
+                </div>
+
+
+            *{<h4 class="modal-title" id="modalPanelLabel">Descrição</h4>}*
+            </div>
+            <div class="modal-body">
+                <form id="comment-form">
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">Descrição:</label>
+                        <textarea class="not-displayable" id="workday-comment-aux"></textarea>
+                        <textarea class="form-control expanding" id="workday-comment-editor" name="commentMsg" rows="4">
+                        </textarea>
+                        <input name="wdid" id="workday-id" type="text" class="not-displayable">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel" type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="save-workday-comment">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -23,6 +23,8 @@ public class WorkDay extends Model {
     /**
      * A message the user can comment about any event
      */
+
+    @Column(columnDefinition = "TEXT")
     public String message;
     @Transient
     public long registredTime;
@@ -40,6 +42,7 @@ public class WorkDay extends Model {
         this.user = user;
         this.periods = new ArrayList<Period>();
     }
+
 
     /**
      * Get the time of the whole WorkDay
@@ -71,6 +74,7 @@ public class WorkDay extends Model {
         return l;
     }
 
+
     /**
      * Get the WorkDay of the especified date
      *
@@ -78,8 +82,8 @@ public class WorkDay extends Model {
      * @param u the user
      * @return
      */
-    public static final List<WorkDay> getOfDay(Date d, User u) {
-        return findWithDates(DateTimeUtils.getStartOfDay(d), DateTimeUtils.getEndOfDay(d), u);
+    public static final WorkDay getOfDay(Date d, User u) {
+        return findOneWithDates(DateTimeUtils.getStartOfDay(d), DateTimeUtils.getEndOfDay(d), u);
     }
 
     /**
@@ -104,17 +108,18 @@ public class WorkDay extends Model {
         return findWithDates(DateTimeUtils.getStartOfMonth(d), DateTimeUtils.getEndOfMonth(d), u);
     }
 
-    /**
-     * "Dao" method to look in database for workdays in the interval of given dates
-     *
-     * @param firstDate the "bottom" date
-     * @param lastDate  the "top"date
-     * @param u         user
-     * @return a list of workdays in the given interval
-     */
+
     public static final List<WorkDay> findWithDates(Date firstDate, Date lastDate, User u) {
         return find("user = ?1 and date between ?2 and ?3",
                 u, firstDate, lastDate).fetch();
+        //  Another way to do the same
+        //  return find("from Ponto p where p.date >= ?1 and p.date <=?2",
+        //      firstDate, lastDate).fetch();
+    }
+
+    public static final WorkDay findOneWithDates(Date firstDate, Date lastDate, User u) {
+        return find("user = ?1 and date between ?2 and ?3",
+                u, firstDate, lastDate).first();
         //  Another way to do the same
         //  return find("from Ponto p where p.date >= ?1 and p.date <=?2",
         //      firstDate, lastDate).fetch();

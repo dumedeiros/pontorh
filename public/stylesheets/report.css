@@ -1,0 +1,159 @@
+/************************************
+*            RELATÓRIOS
+*************************************/
+
+/*#relatorio{*/
+/*font-size: 1em;*/
+/*}*/
+
+/*#relatorio table{*/
+/*font-size: 1em;*/
+/*}*/
+
+/*#relatorio td{*/
+/*font-size: 1em;*/
+/*}*/
+
+/*#relatorio thead td{*/
+/*font-size: 1em;*/
+/*background: white;*/
+/*}*/
+
+/************************************
+*            RELATÓRIOS
+*************************************/
+
+.report {
+    font-size: 1em;
+    font-family: Verdana;
+    margin: 0 auto;
+/ / centralizar
+}
+
+table {
+    font-size: 0.8em;
+    border-collapse: collapse;
+}
+
+.report h3 {
+    background: #FFFFFF;
+    /*border-bottom:1px solid #000000;*/
+    border-bottom: 0px;
+    color: #000000;
+    text-align: center;
+}
+
+.report h2.title {
+    margin: 0;
+    padding: 3px;
+    color: black;
+    border: 0;
+}
+
+.report .report-parameters {
+    /*text-align: right;*/
+    border-bottom: 1px solid #000000;
+    width: 100%;
+}
+
+.report .report-parameters th {
+    color: #000000;
+    font-weight: bold;
+    text-align: left;
+}
+
+.report .report-parameters td {
+    color: #000000;
+    text-align: left;
+}
+
+.report-body table tr th {
+    border: solid thin black;
+}
+
+.report-body table tr td {
+    border: solid thin lightgrey;
+}
+
+.report-container {
+    width: 900px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.report-header {
+    border: 1px solid #6A6A6A;
+    padding: 6px;
+    background-color: #FFFFFF;
+    min-height: 55px;
+    _height: 55px;
+}
+
+.report-header #texto {
+    margin: 0 22%;
+    font-size: 1em;
+    font-variant: small-caps;
+    text-align: center;
+    font-weight: bold;
+}
+
+.report .left-logo {
+    margin-top: 1%;
+    float: left;
+    width: 22%;
+    text-align: center;
+}
+
+.report-header .left-logo img {
+    height: 48px;
+}
+
+.report .right-logo {
+    margin-top: 1%;
+    float: right;
+    width: 22%;
+    text-align: center;
+}
+
+.report .report-body table {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+
+.report .report-body table thead {
+    background: lightgray;
+}
+
+.report .report-body table tfoot {
+    font-weight: bold;
+    background: lightgray;
+}
+
+.report #texto .date {
+    font-weight: normal;
+    text-align: left;
+}
+
+.report-footer {
+    border: 1px solid;
+    padding: 8px 0;
+}
+
+.report-footer table tr td {
+    font-size: 0.65em;
+}
+
+.back-icon a {
+    background: url(../images/back.png) no-repeat left;
+    padding: 3px 0 3px 20px;
+}
+
+.print-icon a {
+    background: url(../images/printer-icon.png) no-repeat right;
+    padding: 10px 30px 10px 0px;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}

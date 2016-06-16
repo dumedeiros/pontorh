@@ -1,0 +1,111 @@
+#{stylesheet src:'report.css'/}
+#{stylesheet src:'print.css'/}
+
+<head>
+    <title>Ponto RH - Relatório do ponto</title>
+</head>
+
+<div class="report-container">
+    <div class="report">
+        <div class="report-header">
+            <div class="left-logo">
+                <img src="@{'/public/images/ufersa.gif'}"/> <br/>
+            </div>
+            <div class="right-logo">
+                <img src="@{'/public/images/hash-icon.png'}"/>
+            </div>
+            <div id="texto">
+                Universidade Federal Rural do Semi-árido <br>
+				<span>
+					Sistema Integrado de Gestão de Recursos Humanos<br/>
+				</span>
+                <br/>
+            *{TODO verificar pq nao ta aparecendo as horas do date}*
+                <span class="date"> Emitido em ${now.format("dd/MM/yyyy HH:mm")}</span>
+            </div>
+        </div>
+
+        <h3> Ponto Associado ao Mês ${date.format("MMMM")} de ${date.format("yyyy")}</h3>
+
+        <div class="report-parameters">
+            <table>
+                <tr>
+                    <td nowrap="nowrap"><b>Bolsista: </b></td>
+                    <td class="uppercase"> ${user.fullName} ${user.matricula}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="report-body">
+            <table>
+                <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Horários Registrados</th>
+                    <th>Horas Resigtradas</th>
+                    <th width="30%">Observação</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                #{list items:wdMonthTree, as:'wd'}
+                %{ weekDay = wd.key.dayalize() }%
+                <tr>
+                    <!-- Data -->
+                    <td>
+                        <span>${wd.key.formatLocalDateLocale()}</span>
+                    </td>
+                    <!-- Horarios registrados -->
+                    <td>
+                    ${wd.value?.periods ? '' : '----' }
+                        #{list items:wd.value?.periods, as:'p'}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <span>${p.dateIn?.format('HH:mm')}</span> -
+                            <span>${p.dateOut?.format('HH:mm')}</span><br>
+                        #{/list}
+                    </td>
+                    <!-- Horas registradas -->
+                    <td>
+                        <span>${ wd.value?.registredTime ?  wd.value?.registredTime?.formatime("%02d:%02d:%02d") : '----'}</span>
+                    </td>
+                    <!-- Observação -->
+                    <td style="text-align: left; width: 10px">
+                        <span>${wd?.value?.message}</span>
+                    </td>
+                </tr>
+                #{/list}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <!-- Total registrado-->
+                    <td colspan="2" style="text-align: right;">Total
+                        Registrado no mês
+                    </td>
+                    <td style="text-align: center; ">
+                    *{TODO alterar para formatime()}*
+                        <span> ${mTime.formatime("%02d:%02d:%02d")} </span>
+                    </td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+        <br/>
+        <!-- Report footer -->
+        <div class="report-footer">
+            <table width="100%">
+                <tr>
+                    <td class="back-icon hidden-print"><a href="javascript:history.back();"> Voltar </a></td>
+                    <td align="center">
+                        #PontoRH | (84) 9999-0000 | Copyright &copy; 20016 - UFERSA
+                    </td>
+                    <td align="right" class="print-icon hidden-print">
+                        <a href="#" onclick="javascript:window.print();">
+                            Imprimir
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

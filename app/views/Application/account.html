@@ -2,79 +2,117 @@
 #{set title: messages.get('application.account') /}
 
 
+<div style="margin-left: 400px; margin-top: 10px">
+    <ul class="polaroids">
+        <a href="#" id="change-picture"><img src=@{Application.getUserAvatar()}></a>
+    </ul>
 </div>
 
+<!--*TABS-->
+<!-- Nav tabs -->
+<br/>
+<ul class="nav nav-tabs " role="tablist" style="margin-left: 260px; width: 50%">
+    <li role="presentation" class="active">
+        <a href="#user-data" aria-controls="user-data" role="tab" data-toggle="tab">Dados do Usuário</a>
+    </li>
+    <li role="presentation">
+        <a href="#linked-accounts" aria-controls="linked-accounts"
+           role="tab" data-toggle="tab">Meus Logins</a>
+    </li>
+</ul>
 
-<div style="margin-left: 300px; margin-top: 10px">
+<div class="tab-content" style="margin-top: -40px">
+    <div role="tabpanel" class="tab-pane active" id="user-data">
+        <div style="margin: 50px 0 0 270px; width: 400px">
+            <table class="user-table">
+                <tr>
+                    <td>Nome</td>
+                    <td>${user.fullName}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>${user.email}</td>
+                </tr>
+                <tr>
+                    <td>Telefone</td>
+                    <td>${user.phone}</td>
+                </tr>
+                <tr>
+                    <td>CPF</td>
+                    <td>${user.cpf}</td>
+                </tr>
+                <tr>
+                    <td>Matrícula</td>
+                    <td>${user.matricula}</td>
+                </tr>
+                <tr>
+                    <td>RG</td>
+                    <td>${user.rg}</td>
+                </tr>
+                <tr>
+                    <td>Sexo</td>
+                    <td>${user.sex.sexualize()}</td>
+                </tr>
+                <tr>
+                    <td>Data de Nascimento</td>
+                    <td>${user.birthDate?.format()}</td>
 
-    <table class="user-table">
-        <tr>
-            <td><img src=${user.avatarUrl}></td>
-            <td style="color: blue">${user.displayName}</td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td>${user.email}</td>
-        </tr>
-        <tr>
-            <td>CPF</td>
-            <td>${user.cpf}</td>
-        </tr>
-        <tr>
-            <td>RG</td>
-            <td>${user.rg}</td>
-        </tr>
-        <tr>
-            <td>Sexo</td>
-            <td>${user.gender}</td>
-        </tr>
-        <tr>
-            <td>Data de Nascimento</td>
-            <td>${user.birthDateDate}</td>
-        </tr>
-    </table>
+                </tr>
+            </table>
+            <div style="margin: 2% 50%">
+                <a href="@{Application.editUser()}" class="btn btn-primary">Editar</a>
+            </div>
+        </div>
+    </div>
 
-    <div style="margin-left: 85px">Adicionar Conta</div>
-    <table style="margin-left: 80px">
-    #{if !providerTypes?.isEmpty()}
-        <tr>
-            #{list items:providerTypes, as:'providerType'}
-                <td><a style="display: inline-block; height: 35px; width: 35px"
-                       class="${providerType}" href="@{Application.newLinkedAccount(providerType)}"></a>
-                </td>
-            #{/list}
-        </tr>
-    #{/if}
-    </table>
+    <div role="tabpanel" class="tab-pane" id="linked-accounts">
+        <div style="margin: 50px 0 0 310px; width: 400px">
+            <div>Adicionar Conta</div>
+            <table>
+            #{if !providerTypes?.isEmpty()}
+                <tr>
+                    #{list items:providerTypes, as:'providerType'}
+                        <td><a style="display: inline-block; height: 35px; width: 35px"
+                               class="${providerType}" href="@{Application.newLinkedAccount(providerType)}"></a>
+                        </td>
+                    #{/list}
+                </tr>
+            #{/if}
+            </table>
 
-#{if linkedAccounts}
-    <div style="margin-left: 85px">Remover Conta</div>
-    <table style="margin-left: 80px">
-        <tr>
-            #{list items:linkedAccounts.entrySet(), as:'linkedAccount'}
-            %{ account = linkedAccount.getValue() }%
-                <td class="${account.provider} provider-exclude-icon">
+        #{if linkedAccounts}
+            <div>Remover Conta</div>
+            <table>
+                <tr>
+                    #{list items:linkedAccounts.entrySet(), as:'linkedAccount'}
+                    %{ account = linkedAccount.getValue() }%
+                        <td class="${account.provider} provider-exclude-icon">
 
-                    <a class="provider-exclude-icon-close" style=""
-                       href="@{Application.unLinkAccount(account.id)}"> </a>
-                </td>
-            #{/list}
-        </tr>
-    </table>
-#{/if}
+                            <a class="provider-exclude-icon-close" style=""
+                               href="@{Application.unLinkAccount(account.id)}"> </a>
+                        </td>
+                    #{/list}
+                </tr>
+            </table>
+        #{/if}
+
+        </div>
+    </div>
 
 </div>
+
 
 <script>
     $(".provider-exclude-icon-close").hover(
             function () {
-                $(this).parent().addClass("icon");
+                $(this).parent().addClass("remove-icon");
             }, function () {
-                $(this).parent().removeClass("icon");
+                $(this).parent().removeClass("remove-icon");
             }
     );
 
 </script>
+
 
 
 </head>

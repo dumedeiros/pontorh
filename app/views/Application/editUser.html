@@ -1,0 +1,165 @@
+#{extends 'main.html' /}
+#{set title: 'Editar' /}
+
+#{script 'jquery.maskedinput.min.js'/}
+
+<div class="center-block" style="width: 700px">
+    <div class="center-block text-center"><h2>Editar Dados</h2></div>
+#{form @Application.doEditUser(), autocomplete:'off'}
+    <fieldset>
+        #{field 'user.fullName'}
+            <div class="clearfix form-group #{ifError field.name}error#{/ifError}">
+                <label>Nome</label>
+
+                <div>
+                    <input id="${field.id}" class="form-control" name="${field.name}"
+                           type="text"
+                           value="${user.fullName}"/>
+                    #{ifError field.name}
+                        <span class="help-inline">${field.error}</span>
+                    #{/ifError}
+                </div>
+            </div>
+        #{/field}
+
+        #{field 'user.email'}
+            <div class="clearfix form-group #{ifError field.name}error#{/ifError}">
+                <label>Email</label>
+
+                <div class="input">
+                    <input id="${field.id}" class="form-control" name="${field.name}" type="text"
+                           value="${user.email}"/>
+                    <span class="help-inline">
+                    #{ifError field.name}
+                    ${field.error}
+                    #{/ifError}
+                        <span>Ex: joao.dae@gmail.com</span>
+                </span>
+                </div>
+            </div>
+        #{/field}
+
+        <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+        <div class="row">
+            <div class="col-md-4">
+                #{field 'user.phone'}
+                    <div class="clearfix form-group #{ifError field.name}error#{/ifError}">
+                        <label>Telefone</label>
+
+                        <div class="input">
+                            <input id="${field.id}" class="form-control mask-phone pequeno" name="${field.name}"
+                                   type="text"
+                                   value="${user.phone}"/>
+                            #{ifError field.name}
+                                <span class="help-inline">${field.error}</span>
+                            #{/ifError}
+                        </div>
+                    </div>
+                #{/field}
+            </div>
+            <div class="col-md-4">
+                #{field 'user.cpf'}
+                    <div class="clearfix form-group #{ifError field.name}error erro-pequeno#{/ifError}">
+                        <label>Cpf</label>
+
+                        <div class="input">
+                            <input id="${field.id}" class="form-control mask-cpf pequeno" name="${field.name}"
+                                   type="text"
+                                   value="${user.cpf}"/>
+                            #{ifError field.name}
+                                <span class="help-inline">${field.error}</span>
+                            #{/ifError}
+                        </div>
+                    </div>
+                #{/field}
+            </div>
+            <div class="col-md-4">
+                #{field 'user.matricula'}
+                    <div class="clearfix form-group #{ifError field.name}error erro-pequeno#{/ifError}">
+                        <label>Matrícula</label>
+
+                        <div class="input">
+                            <input id="${field.id}" class="form-control pequeno" name="${field.name}" type="text"
+                                   value="${user.matricula}"/>
+                            #{ifError field.name}
+                                <span class="help-inline">${field.error}</span>
+                            #{/ifError}
+                        </div>
+                    </div>
+                #{/field}
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-4">
+                #{field 'user.rg'}
+                    <div class="clearfix form-group #{ifError field.name}error erro-pequeno#{/ifError}">
+                        <label>RG</label>
+
+                        <div class="input">
+                            <input id="product" class="form-control pequeno" name="${field.name}" type="text"
+                                   value="${user.rg}"/>
+                            #{ifError field.name}
+                                <span class="help-inline">${field.error}</span>
+                            #{/ifError}
+                        </div>
+                    </div>
+                #{/field}
+            </div>
+
+            <div class="col-md-4">
+                #{field 'user.sex'}
+                    <label>Sexo</label>
+
+
+                    <div class="clearfix form-group #{ifError field.name}error erro-pequeno#{/ifError}">
+                        <div class="select" style="min-width:50px;  max-width: 50px; width: 50px">
+                            <select data-width="auto" name='${field.name}'
+                                    class="selectpicker show-menu-arrow">
+                                <option value=0></option>
+                                <option class="select male" value=1 ${user.sex == 1 ? 'selected' : ""}>Masculino
+                                </option>
+                                <option class="select female" value=2 ${user.sex == 2 ? 'selected' : ""}>Feminino
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                #{/field}
+            </div>
+
+            <div class="col-md-4">
+                #{field 'user.birthDate'}
+                    <div class="clearfix form-group #{ifError field.name}error erro-pequeno#{/ifError}">
+                        <label>Data de Nascimento</label>
+
+                        <div class="input">
+                            <input id="${field.id}" class="form-control mask-date pequeno" name="${field.name}"
+                                   type="text"
+                                   value="${user.birthDate?.format()}"/>
+                            #{ifError field.name}
+                                <span class="help-inline">${field.error}</span>
+                            #{/ifError}
+                        </div>
+                    </div>
+                #{/field}
+            </div>
+        </div>
+
+
+        <input type="submit" class="btn btn-primary center-block" value="OK">
+
+    </fieldset>
+#{/form}
+</div>
+
+<script>
+
+    jQuery(function ($) {
+        $(".mask-phone").mask("(99) 9 9999-9999", {placeholder: " "});
+        $(".mask-cpf").mask("999.999.999-99", {placeholder: " "});
+        $(".mask-date").mask("99/99/9999", {placeholder: " "});
+    });
+
+</script>
+

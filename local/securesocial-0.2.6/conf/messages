@@ -12,6 +12,9 @@ forbidden="Access Denied"
 #
 # Login
 #
+
+securesocial.createaccount=Create your account
+
 securesocial.loginTitle=Log In
 securesocial.login=Log In
 securesocial.clickOnYourAccount=Use your existing account on one of the following networks to log in.
@@ -39,6 +42,9 @@ securesocial.loadError=There was an error while loading data. Please try again.
 #
 # SignUp
 #
+
+securesocial.signUpTitleCad=Cadastration
+
 securesocial.signUpTitle=Sign Up
 securesocial.signUpLabel=Complete the following form:
 securesocial.userName=Username

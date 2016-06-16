@@ -1,4 +1,4 @@
-#{secure_social_header messages.get('securesocial.signUpTitle')/}
+#{secure_social_header messages.get('securesocial.signUpTitleCad')/}
 
 <div class="clearfix">
     <p>&{'securesocial.signUpLabel'}</p>
@@ -12,7 +12,7 @@
                 <div class="input">
                 *{//fixme descomentar e remover linha abaixo}*
                 *{<input id="${field.id}" class="large" name="${field.name}" value="${field.value}"/>}*
-                    <input id="${field.id}" class="large" name="${field.name}" value="a"/>
+                    <input id="${field.id}" class="large" name="${field.name}" value=""/>
 
                     #{ifError field.name}
                         <span class="help-inline">${field.error}</span>
@@ -28,7 +28,7 @@
                 <div class="input">
                 *{//todo descomentar e remover linha abaixo}*
                 *{<input id="${field.id}" class="large" name="${field.name}" value="${field.value}"/>}*
-                    <input id="${field.id}" class="large" name="${field.name}" value="a"/>
+                    <input id="${field.id}" class="large" name="${field.name}" value=""/>
                     #{ifError field.name}
                         <span class="help-inline">${field.error}</span>
                     #{/ifError}
@@ -44,7 +44,7 @@
                 <div class="input">
                 *{//fixme descomentar e remover linha abaixo}*
                 *{<input id="${field.id}" class="large" name="${field.name}" value="${field.value}"/>}*
-                    <input id="${field.id}" class="large" name="${field.name}" value="ufrn.eduardo@gmail.com"/>
+                    <input id="${field.id}" class="large" name="${field.name}" value=""/>
                     #{ifError field.name}
                         <span class="help-inline">${field.error}</span>
                         <span class="help-inline">&{'securesocial.emailHelp'}</span>
@@ -64,7 +64,7 @@
 
                 *{//fixme descomentar e remover linha abaixo}*
                 *{<input id="${field.id}" class="large" name="${field.name}" type="password"/>}*
-                    <input id="${field.id}" class="large" name="${field.name}" type="password" value="a"/>
+                    <input id="${field.id}" class="large" name="${field.name}" type="password" value=""/>
                     #{ifError field.name}
                         <span class="help-inline">${field.error}</span>
                     #{/ifError}
@@ -79,7 +79,7 @@
             <div class="input">
             *{//fixme descomentar e remover linha abaixo}*
             *{<input id="${field.id}" class="large" name="${field.name}" type="password"/>}*
-                <input id="${field.id}" class="large" name="${field.name}" type="password" value="a"/>
+                <input id="${field.id}" class="large" name="${field.name}" type="password" value=""/>
                 #{ifError field.name}
                     <span class="help-inline">${field.error}</span>
                 #{/ifError}
@@ -96,3 +96,106 @@
 </div>
 
 #{mytags.discardFlash /}
+
+
+
+
+*{#{secure_social_header messages.get('securesocial.signUpTitle')/}}*
+
+*{<div class="clearfix">}*
+    *{<p>&{'securesocial.signUpLabel'}</p>}*
+*{#{form @securesocial.UsernamePasswordController.createAccount(), autocomplete:'off'}}*
+
+    *{<fieldset>}*
+        *{#{field 'userName'}}*
+            *{<div class="clearfix #{ifError field.name} ? error : '' #{/ifError}">}*
+                *{<label for="${field.id}">&{'securesocial.userName'}</label>}*
+
+                *{<div class="input">}*
+                *{//fixme descomentar e remover linha abaixo}*
+                *{<input id="${field.id}" class="large" name="${field.name}" value="${field.value}"/>}*
+                    *{<input id="${field.id}" class="large" name="${field.name}" value="a"/>}*
+
+                    *{#{ifError field.name}}*
+                        *{<span class="help-inline">${field.error}</span>}*
+                    *{#{/ifError}}*
+                *{</div>}*
+            *{</div>}*
+        *{#{/field}}*
+
+        *{#{field 'displayName'}}*
+            *{<div class="clearfix #{ifError field.name} error #{/ifError}">}*
+                *{<label for="${field.id}">&{'securesocial.name'}</label>}*
+
+                *{<div class="input">}*
+                *{//todo descomentar e remover linha abaixo}*
+                *{<input id="${field.id}" class="large" name="${field.name}" value="${field.value}"/>}*
+                    *{<input id="${field.id}" class="large" name="${field.name}" value="a"/>}*
+                    *{#{ifError field.name}}*
+                        *{<span class="help-inline">${field.error}</span>}*
+                    *{#{/ifError}}*
+                *{</div>}*
+            *{</div>}*
+        *{#{/field}}*
+
+
+        *{#{field 'email'}}*
+            *{<div class="clearfix #{ifError field.name} error #{/ifError}">}*
+                *{<label for="${field.id}">&{'securesocial.email'}</label>}*
+
+                *{<div class="input">}*
+                *{//fixme descomentar e remover linha abaixo}*
+                *{<input id="${field.id}" class="large" name="${field.name}" value="${field.value}"/>}*
+                    *{<input id="${field.id}" class="large" name="${field.name}" value="ufrn.eduardo@gmail.com"/>}*
+                    *{#{ifError field.name}}*
+                        *{<span class="help-inline">${field.error}</span>}*
+                        *{<span class="help-inline">&{'securesocial.emailHelp'}</span>}*
+                    *{#{/ifError}}*
+                    *{#{else }}*
+                        *{<span>&{'securesocial.emailHelp'}</span>}*
+                    *{#{/else}}*
+                *{</div>}*
+            *{</div>}*
+        *{#{/field}}*
+
+        *{#{field 'password'}}*
+            *{<div class="clearfix #{ifError field.name} error #{/ifError}">}*
+                *{<label for="${field.id}">&{'securesocial.password'}</label>}*
+
+                *{<div class="input">}*
+
+                *{//fixme descomentar e remover linha abaixo}*
+                *{<input id="${field.id}" class="large" name="${field.name}" type="password"/>}*
+                    *{<input id="${field.id}" class="large" name="${field.name}" type="password" value="a"/>}*
+                    *{#{ifError field.name}}*
+                        *{<span class="help-inline">${field.error}</span>}*
+                    *{#{/ifError}}*
+                *{</div>}*
+            *{</div>}*
+        *{#{/field}}*
+
+        *{#{field 'passwordConfirm'}#{/field}}*
+        *{<div class="clearfix #{ifError field.name} error #{/ifError}">}*
+            *{<label for="${field.id}">&{'securesocial.password2'}</label>}*
+
+            *{<div class="input">}*
+            *{//fixme descomentar e remover linha abaixo}*
+            *{<input id="${field.id}" class="large" name="${field.name}" type="password"/>}*
+                *{<input id="${field.id}" class="large" name="${field.name}" type="password" value="a"/>}*
+                *{#{ifError field.name}}*
+                    *{<span class="help-inline">${field.error}</span>}*
+                *{#{/ifError}}*
+            *{</div>}*
+        *{</div>}*
+
+        *{<div class="actions">}*
+            *{<input type="submit" value="Create Account" class="btn primary">}*
+            *{<a href="@{securesocial.SecureSocial.login()}" class="btn">&{'securesocial.cancel'}</input></a>}*
+        *{</div>}*
+    *{</fieldset>}*
+*{#{/form}}*
+*{</div>}*
+*{</div>}*
+
+*{#{mytags.discardFlash /}}*
+

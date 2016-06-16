@@ -5,6 +5,8 @@ require:
     - play -> deadbolt 1.5.4
     - securesocial -> securesocial 0.2.6
     - play -> crud
+    - play -> pdf 0.9
+
 
 repositories:
     - My modules:

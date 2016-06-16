@@ -107,6 +107,7 @@ public class UsernamePasswordController extends Controller {
 
         // create an activation id
         final String uuid = UserService.createActivation(user);
+//        Mails.sendActivationEmail(user, uuid);
         Mails.sendActivationEmail(user, uuid);
         flash.success(Messages.get(SECURESOCIAL_ACCOUNT_CREATED));
         final String title = Messages.get(SECURESOCIAL_ACTIVATION_TITLE, user.displayName);

@@ -18,15 +18,13 @@ public class PontoRHUtils {
      * Get the last time registred (if the user has been registred before),
      * to be seen when the user register the out
      *
-     * @param wrkDs list of WorkDays (will receive the WorkDays of the current day)
+     * @param wrkDay list of WorkDays (will receive the WorkDays of the current day)
      * @return String with formatted time
      */
-    public static String lastTimeIn(List<WorkDay> wrkDs) {
-        WorkDay wd = (wrkDs != null && wrkDs.size() > 0) ? wrkDs.get(0) : null;
-
-        return (wrkDs != null && wd != null && wd.periods != null && wd.periods.size() > 0
-                && wd.periods.get(wd.periods.size() - 1).dateOut == null) ?
-                new SimpleDateFormat("HH:mm").format(wd.periods.get(wd.periods.size() - 1).dateIn) : null;
+    public static String lastTimeIn(WorkDay wrkDay) {
+        return (wrkDay != null && !CollectionUtils.isEmpty(wrkDay.periods)
+                && wrkDay.periods.get(wrkDay.periods.size() - 1).dateOut == null) ?
+                new SimpleDateFormat("HH:mm").format(wrkDay.periods.get(wrkDay.periods.size() - 1).dateIn) : null;
     }
 
     /**

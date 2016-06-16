@@ -4,6 +4,8 @@ import play.templates.JavaExtensions;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.time.format.TextStyle;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -27,6 +29,22 @@ public class DateTimeExtension extends JavaExtensions {
     public static String dayalize(LocalDate datetime) {
         String aux = datetime == null ? "" : datetime.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
         return (aux.contains("-")) ? aux.substring(0, aux.indexOf('-')) : aux;
+    }
+
+    /**
+     * Given a number (milliseconds), return its representation in time
+     * P. ex.: 1120931 milliseconds = 09:hh
+     *
+     * @param date the number of milliseconds
+     * @return it's representation in time
+     */
+    public static String formatLocalDateLocale(LocalDate date) {
+
+        DateTimeFormatter formatador = DateTimeFormatter
+                .ofLocalizedDate(FormatStyle.MEDIUM);
+        //.withLocale()
+
+        return date.format(formatador);
     }
 
 

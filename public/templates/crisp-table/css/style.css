@@ -1,7 +1,5 @@
 @import url(patua-one-font.css);
 
-
-
 * {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -12,7 +10,7 @@
 /*background: #353a40;*/
 /*}*/
 
-table.fashion thead tr th{
+table.fashion thead tr th {
     text-align: center;
     vertical-align: middle;
 }
@@ -100,29 +98,29 @@ table.fashion tbody tr:last-child td:last-child {
 }
 
 /*table.fashion tbody:active > tr td {*/
-    /*filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);*/
-    /*opacity: 0.3;*/
-    /*!* uncomment for blur effect *!*/
-    /*!*color:transparent;*!*/
-    /*!*@include text-shadow(0px 0px 2px rgba(0,0,0,0.8));*!*/
+/*filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);*/
+/*opacity: 0.3;*/
+/*!* uncomment for blur effect *!*/
+/*!*color:transparent;*!*/
+/*!*@include text-shadow(0px 0px 2px rgba(0,0,0,0.8));*!*/
 /*}*/
 
 /*table.fashion tbody:active > tr:active td {*/
 
-    /*text-shadow: none;*/
-    /*color: #2d2d2d;*/
-    /*filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);*/
-    /*opacity: 1;*/
+/*text-shadow: none;*/
+/*color: #2d2d2d;*/
+/*filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);*/
+/*opacity: 1;*/
 /*}*/
 
 /*table.no-flash tbody:active > tr td {*/
 
-    /*!*TODO alterar para a tabela nao ficar frescando quando clica nas linhas, opacidade das letras aumentas*!*/
-    /*filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);*/
-    /*opacity: 1;*/
-    /*!* uncomment for blur effect *!*/
-    /*!*color:transparent;*!*/
-    /*!*@include text-shadow(0px 0px 2px rgba(0,0,0,0.8));*!*/
+/*!*TODO alterar para a tabela nao ficar frescando quando clica nas linhas, opacidade das letras aumentas*!*/
+/*filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);*/
+/*opacity: 1;*/
+/*!* uncomment for blur effect *!*/
+/*!*color:transparent;*!*/
+/*!*@include text-shadow(0px 0px 2px rgba(0,0,0,0.8));*!*/
 /*}*/
 
 .no-flash td:first-child {

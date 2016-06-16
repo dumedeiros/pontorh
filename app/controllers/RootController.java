@@ -2,9 +2,11 @@ package controllers;
 
 
 import controllers.securesocial.SecureSocial;
+import models.pontorh.Avatar;
 import models.pontorh.User;
 import models.securesocial.Account;
 import models.securesocial.LinkedAccount;
+import play.Logger;
 import play.data.validation.Required;
 import play.mvc.Controller;
 import play.mvc.Util;
@@ -13,11 +15,14 @@ import securesocial.provider.ProviderType;
 import securesocial.provider.SocialUser;
 import utils.StringUtils;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 
-/**
- * @author Steve Chaloner (steve@objectify.be)
- */
 @With(SecureSocial.class)
 public class RootController extends Controller {
 
@@ -98,11 +103,37 @@ public class RootController extends Controller {
 
         SocialUser socialUser = SecureSocial.getCurrentUser();
         User user = new User.Builder()
-                .displayName(socialUser.displayName)
+                .fullName(socialUser.displayName)
                 .avatarUrl(socialUser.avatarUrl)
                 .email(socialUser.email)
                 .build()
                 .save();
+
+
+        if (user.avatarUrl != null) {
+            try {
+                URL url = new URL(user.avatarUrl);
+
+                final BufferedImage image = ImageIO.read(url);
+
+                URLConnection conn = url.openConnection();
+                String contentType = conn.getContentType();
+
+                Avatar avatar = new Avatar();
+
+                avatar.name = "Avatar".concat(user.id.toString()).concat(contentType.replace("image/", "."));
+                avatar.contentType = contentType;
+                avatar.imageBytes = Avatar.getScaledInstance(image, 200, 200, RenderingHints.VALUE_INTERPOLATION_BICUBIC, true);
+                avatar.size = avatar.imageBytes.length;
+                avatar.user = user;
+                avatar.save();
+
+            } catch (IOException e) {
+                Logger.error("Erro ao atribuir avatar da rede social");
+                e.printStackTrace();
+            }
+
+        }
 
         Account account = new Account.Builder()
                 .user(user)

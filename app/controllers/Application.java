@@ -2,12 +2,14 @@ package controllers;
 
 import controllers.deadbolt.Deadbolt;
 import controllers.securesocial.SecureSocial;
+import models.pontorh.Avatar;
 import models.pontorh.Period;
 import models.pontorh.User;
 import models.pontorh.WorkDay;
 import models.securesocial.Account;
 import models.securesocial.LinkedAccount;
 import play.data.binding.As;
+import play.data.validation.Valid;
 import play.mvc.Before;
 import play.mvc.Scope;
 import play.mvc.With;
@@ -17,10 +19,10 @@ import securesocial.provider.ProviderType;
 import securesocial.provider.SocialUser;
 import security.LinkedAccountToSocialUser;
 import utils.PontoRHUtils;
+import utils.ReflectionUtils;
 import utils.StringUtils;
 
 import java.util.*;
-
 
 @With({SecureSocial.class,
         Deadbolt.class})
@@ -29,8 +31,16 @@ public class Application extends RootController {
     private static final String ACCOUNT_URL = "/application/account";
     private static final String SUCCESS = "success";
 
+    //TODO Em Application.java colocar o checkAutenticyToken em um @Before method e executar antes de todos os metodos que são
+    // requisitados de um #form
+
+    //TODO substituir todos os <form> por #form para possuir os metodos #{authenticityToken /}
+    //ou colocar #{authenticityToken /} em todos os <form>s
+
     @Before(unless = {}, priority = Integer.MAX_VALUE)
     static void globals() {
+
+
         User loggedUser;
 
         if (!request.isAjax()) {
@@ -153,23 +163,37 @@ public class Application extends RootController {
 
     /**
      * Used to do the implementation tests
-     *
-     * @param d
      */
-    public static void teste(Date... d) {
-
+    public static void teste() {
+//        User loggedUser = getLoggedUser();
+//        loggedUser.sex = 2;
+//        loggedUser.save();
+//        index();
     }
 
-    /**
-     * @param filterDate a custom date
-     */
-    public static void index(Date... filterDate) {
+    public static void index() {
+
+        //Para Filtrar a data
+        String sessionFilterDate = session.get("filterdate");
+        session.remove("filterdate");
+//        Date filterDate = DateTimeUtils.stringToDate(sessionFilterDate);
+        Date filterDate = null;
+        if (sessionFilterDate != null) {
+            filterDate = new Date();
+            filterDate.setTime(new Long(sessionFilterDate));
+        }
+
+//        if (sessionFilterDate != null)
+//            filterDate.setTime(new Long(sessionFilterDate));
 
         //To fullfill the date input of date picker in view
-        Scope.RenderArgs.current().put("date", filterDate == null ? null : filterDate[0]);
+        Date date = (filterDate == null || filterDate == null) ? new Date() : filterDate;
+        Scope.RenderArgs.current().put("filterDate", filterDate == null ? null : filterDate);
+        Scope.RenderArgs.current().put("reportDate", date.getTime());
         Scope.RenderArgs.current().put("today", new Date());
 
-        Date date = (filterDate == null || filterDate[0] == null) ? new Date() : filterDate[0];
+
+        session.put("lastdate", filterDate != null ? filterDate.getTime() : (new Date()).getTime());
 
         User user = getLoggedUser();
 
@@ -182,18 +206,16 @@ public class Application extends RootController {
 
         //Get the workdays of today
         //used to calculate the las t time IN
-        List<WorkDay> wdDay = WorkDay.getOfDay(new Date(), user);
+        WorkDay wdDay = WorkDay.getOfDay(new Date(), user);
 
         //Get the last time IN
         String timeIn = PontoRHUtils.lastTimeIn(wdDay);
-
-        //Get the workdays of the custom day
-        wds = WorkDay.getOfDay(date, user);
 
         //Get the workdays of the week
         wds = WorkDay.getOfWeek(date, user);
         long wTime = WorkDay.getWdsTime(wds);
         TreeMap wdWeekTree = PontoRHUtils.putInATreeOfWeek(date, wds);
+
 
         //Get the workdays of the month
         wds = WorkDay.getOfMonth(date, user);
@@ -203,6 +225,19 @@ public class Application extends RootController {
 
         render(timeIn, wdMonthTree, wdWeekTree, wTime, mTime);
     }
+
+    public static void monthReport(long dateTime) {
+
+        User user = getLoggedUser();
+        Date date = new Date();
+        date.setTime(dateTime);
+        List<WorkDay> wds = WorkDay.getOfMonth(date, user);
+        long mTime = WorkDay.getWdsTime(wds);
+        TreeMap wdMonthTree = PontoRHUtils.putInATreeOfMonth(date, wds);
+        Date now = new Date();
+        render(user, wdMonthTree, mTime, now, date);
+    }
+
 
     public static void account() {
 
@@ -230,20 +265,12 @@ public class Application extends RootController {
         //TODO alterar para user logado
         User loggedUser = getLoggedUser();
 
-        List<WorkDay> lp = WorkDay.getOfDay(new Date(), loggedUser);
-        WorkDay wd;
+        WorkDay wd = WorkDay.getOfDay(new Date(), loggedUser);
 
-        if (lp == null || lp.size() == 0) {
-            //Todo alterar "a"
+        if (wd == null) {
             wd = new WorkDay(new Date(), loggedUser);
             wd.save();
-            System.out.printf("criou novo");
-        } else {
-            System.out.println("aqui");
-            wd = lp.get(0);
         }
-
-
         //TODO talvez trazer os periodos do banco organizados na ordem (usar tree?)
         wd.addMessage(msg);
 
@@ -264,7 +291,13 @@ public class Application extends RootController {
     public static void filterDate(@As("dd/MM/yyyy") Date date) {
 
         //TODO adicionar o date a algum objeto de contexto e redefinir a funcao index(arg) para index()
-        index(date);
+
+
+        if (date != null) {
+            session.put("filterdate", date.getTime());
+        }
+
+        index();
     }
 
     public static void newLinkedAccount(ProviderType provider) {
@@ -275,6 +308,12 @@ public class Application extends RootController {
         IdentityProvider identityProvider = ProviderRegistry.get(provider);
         //TODO internalization
         SocialUser socialUser = identityProvider.authenticate();
+    }
+
+    public static void getUserAvatar() {
+        User u = getLoggedUser();
+        Avatar avatar = Avatar.findByUser(u);
+        renderBinary(avatar.toBinary(), avatar.name);
     }
 
 
@@ -305,6 +344,32 @@ public class Application extends RootController {
         account();
 
     }
+
+    public static void editUser() {
+
+        render();
+    }
+
+    public static void doEditUser(@Valid User user) throws NoSuchFieldException, IllegalAccessException {
+
+        checkAuthenticity();
+        User loggedUser = getLoggedUser();
+        if (loggedUser == null) {
+            error();
+        }
+
+        if (validation.hasErrors()) {
+            render("@editUser", user);
+        }
+
+        ReflectionUtils.copyAllNonNullFields(loggedUser, user);//Copia todos os novos atributos do form no loggedUser
+
+        loggedUser.save();
+
+
+        Application.account();
+    }
+
 
 }
 
