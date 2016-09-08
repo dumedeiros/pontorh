@@ -1,0 +1,126 @@
+#{script 'cropper-script.js'/}
+
+<!-- Content -->
+<div class="curve-container"
+     style="min-width: 300px; max-width:300px; min-height: 300px; max-height: 300px; width: 300px; margin-left: 20px">
+    <div class="row">
+        <!-- <h3 class="page-header">Demo:</h3> -->
+        <div class="img-container"
+             style="width: 300px; height: 300px; min-width: 300px; max-width:300px; min-height: 300px; max-height: 300px; ">
+            <img id="image" src="../../../public/images/fox-08.jpg">
+        </div>
+    </div>
+</div>
+<div class="row" id="actions" style="margin-top: 10px; margin-left: -70px">
+    <div class="col-md-9 docs-buttons">
+        <!-- <h3 class="page-header">Toolbar:</h3> -->
+        <!-- MOVE OR CROP -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="move" title="Move">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.setDragMode(&quot;move&quot;)">
+              <span class="fa fa-arrows"></span>
+            </span>
+            </button>
+            <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="crop" title="Crop">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.setDragMode(&quot;crop&quot;)">
+              <span class="fa fa-crop"></span>
+            </span>
+            </button>
+        </div>
+
+        <!-- ZOOM -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-method="zoom" data-option="0.1" title="Zoom In">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.zoom(0.1)">
+              <span class="fa fa-search-plus"></span>
+            </span>
+            </button>
+            <button type="button" class="btn btn-primary" data-method="zoom" data-option="-0.1" title="Zoom Out">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.zoom(-0.1)">
+              <span class="fa fa-search-minus"></span>
+            </span>
+            </button>
+        </div>
+
+        <!-- MOVE CANVAS -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-method="move" data-option="-30"
+                    data-second-option="0"
+                    title="Move Left">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.move(-10, 0)">
+              <span class="fa fa-arrow-left"></span>
+            </span>
+            </button>
+            <button type="button" class="btn btn-primary" data-method="move" data-option="10" data-second-option="0"
+                    title="Move Right">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.move(10, 0)">
+              <span class="fa fa-arrow-right"></span>
+            </span>
+            </button>
+            <button type="button" class="btn btn-primary" data-method="move" data-option="0"
+                    data-second-option="-10"
+                    title="Move Up">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.move(0, -10)">
+              <span class="fa fa-arrow-up"></span>
+            </span>
+            </button>
+            <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="10"
+                    title="Move Down">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.move(0, 10)">
+              <span class="fa fa-arrow-down"></span>
+            </span>
+            </button>
+        </div>
+
+        <br/>
+
+        <!-- ROTATE -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-method="rotate" data-option="-10"
+                    title="Rotate Left">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.rotate(-10)">
+              <span class="fa fa-rotate-left"></span>
+            </span>
+            </button>
+            <button type="button" class="btn btn-primary" data-method="rotate" data-option="10"
+                    title="Rotate Right">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.rotate(10)">
+              <span class="fa fa-rotate-right"></span>
+            </span>
+            </button>
+        </div>
+
+        <!-- SCALE -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-flip="horizontal" data-method="scaleX"
+                    data-option="-1"
+                    title="Flip Horizontal">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.scaleX(-1)">
+              <span class="fa fa-arrows-h"></span>
+            </span>
+            </button>
+            <button type="button" class="btn btn-primary" data-flip="vertical" data-method="scaleY" data-option="-1"
+                    title="Flip Vertical">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.scaleY(-1)">
+              <span class="fa fa-arrows-v"></span>
+            </span>
+            </button>
+        </div>
+
+
+        <!-- RESET & UPLOAD -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-method="reset" title="Reset">
+            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.reset()">
+              <span class="fa fa-refresh"></span>
+            </span>
+            </button>
+            <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
+                <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Import image with Blob URLs">
+              <span class="fa fa-upload"></span>
+            </span>
+            </label>
+        </div>
+    </div>
+</div>

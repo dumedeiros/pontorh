@@ -1,0 +1,48 @@
+<link href="@{'/public/stylesheets/modal-drop.css'}" rel="stylesheet">
+<script type="text/javascript" src="@{'/public/templates/dropzone/dropzone.js'}"></script>
+
+<!-- Show the cropped image in modal -->
+<div class="modal fade docs-cropped" id="imageEditorModal" role="dialog" aria-hidden="true"
+     aria-labelledby="getCroppedCanvasTitle" tabindex="-1">
+    <div class="modal-dialog" style="width: 595px; height: 138px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="imageEditorTitle">Editar Foto</h4>
+            </div>
+            <div class="modal-body" style="">
+
+                <div id="cropper-place" class="hidden">
+                    <!-- Upload image and data -->
+                    <div class="avatar-upload">
+                        <label for="avatarInput">Editar</label>
+                    </div>
+                    <div style="float: right; margin-left: 0px; clear: both">
+                        <div class="img-preview"
+                             style="  min-width: 180px;  max-width: 180px;  min-height: 180px;  max-height: 180px; background: lightgray"></div>
+                    </div>
+                #{cropper /}
+                </div>
+
+                <div id="upload-place" class="image-upload">
+                    <div class="modal-dropzone">
+                        <div style="display: block;" class="modal-dropzone-default tab-page">
+                            <form class="dropzone modal-input-file"
+                                  id="my-awesome-dropzone">Teste
+                            </form>
+
+                            <div class="modal-dropzone-img"></div>
+                            <p><b>Arraste e solte ou clique aqui</b>para fazer o upload de sua imagem (max 2 MiB)</p>
+                        </div>
+                        <div style="display: none;" class="modal-dropzone-preview tab-page"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <a class="btn btn-primary" id="edit-ok" href="javascript:void(0);">Ok</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- /.modal -->
+
