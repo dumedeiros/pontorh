@@ -8,6 +8,7 @@ import models.pontorh.User;
 import models.pontorh.WorkDay;
 import models.securesocial.Account;
 import models.securesocial.LinkedAccount;
+import play.Play;
 import play.data.binding.As;
 import play.data.validation.Valid;
 import play.mvc.Before;
@@ -120,8 +121,6 @@ public class Application extends RootController {
             }
 
             renderArgs.put("user", loggedUser);
-
-
         }
     }
 
@@ -252,11 +251,14 @@ public class Application extends RootController {
                 providerTypes.add(identityProvider.type);
             }
         }
+
+        Avatar userAvatar = Avatar.findByUser(account.user);
         providerTypes.remove(ProviderType.userpass);
 
         render(linkedAccounts,
                 providerTypes,
-                twitter);
+                twitter,
+                userAvatar);
     }
 
     public static void registerPeriod(String msg) {
@@ -313,7 +315,17 @@ public class Application extends RootController {
     public static void getUserAvatar() {
         User u = getLoggedUser();
         Avatar avatar = Avatar.findByUser(u);
-        renderBinary(avatar.toBinary(), avatar.name);
+
+        if (avatar != null) {
+            renderBinary(avatar.toBinary(), avatar.name);
+        }
+        renderBinary(Play.classloader.getResourceAsStream("resources/avatar-null.png"));
+    }
+
+    public static void getUserAvatarAsJson() {
+        User u = getLoggedUser();
+        Avatar avatar = Avatar.findByUser(u);
+        renderJSON(avatar.toBinary());
     }
 
 

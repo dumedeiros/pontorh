@@ -68,7 +68,7 @@ public class UsernamePasswordController extends Controller {
                                      @Required String password,
                                      @Required @Equals(message = "securesocial.passwordsMustMatch", value = "password") String passwordConfirm
     ) {
-        checkAuthenticity();//Opcional
+//        checkAuthenticity();//Opcional
         if (validation.hasErrors()) {
             tryAgain(userName, displayName, email);
         }
@@ -118,6 +118,7 @@ public class UsernamePasswordController extends Controller {
         flash.put(USER_NAME, username);
         flash.put(DISPLAY_NAME, displayName);
         flash.put(EMAIL, email);
+        flash.keep();
         validation.keep();
         signup();
     }

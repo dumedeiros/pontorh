@@ -1,4 +1,6 @@
 package controllers.CRUDS;
 
-public class Users extends AdminCrudBase {
+import controllers.CRUD;
+
+public class Users extends CRUD {
 }

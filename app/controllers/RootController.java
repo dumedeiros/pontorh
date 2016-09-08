@@ -15,12 +15,7 @@ import securesocial.provider.ProviderType;
 import securesocial.provider.SocialUser;
 import utils.StringUtils;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 
 @With(SecureSocial.class)
@@ -112,21 +107,8 @@ public class RootController extends Controller {
 
         if (user.avatarUrl != null) {
             try {
-                URL url = new URL(user.avatarUrl);
 
-                final BufferedImage image = ImageIO.read(url);
-
-                URLConnection conn = url.openConnection();
-                String contentType = conn.getContentType();
-
-                Avatar avatar = new Avatar();
-
-                avatar.name = "Avatar".concat(user.id.toString()).concat(contentType.replace("image/", "."));
-                avatar.contentType = contentType;
-                avatar.imageBytes = Avatar.getScaledInstance(image, 200, 200, RenderingHints.VALUE_INTERPOLATION_BICUBIC, true);
-                avatar.size = avatar.imageBytes.length;
-                avatar.user = user;
-                avatar.save();
+                Avatar.setUserAvatarFromURL(user, user.avatarUrl);
 
             } catch (IOException e) {
                 Logger.error("Erro ao atribuir avatar da rede social");

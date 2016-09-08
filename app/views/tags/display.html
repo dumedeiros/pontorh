@@ -36,7 +36,7 @@
                 #{/list}
             </td>
             <td style="text-align: center">
-                <span>${ wd.value?.registredTime ?  wd.value?.registredTime?.formatime("%02d:%02d:%02d") : '----'}</span>
+                <span>${ wd.value?.registredTime ?  wd.value?.registredTime?.formatime("%02d:%02d") : '----'}</span>
                 <img data-toggle="modal"
                      data-target="#modalEditPanel"
                      data-wdcomment="${wd?.value?.message}"
@@ -55,7 +55,7 @@
             </td>
             <td align="right" style="font-weight: bold; text-align: left; padding-left: 130px">
             *{TODO alterar para formatime()}*
-                <span> ${_time.formatime("%02d:%02d:%02d")} </span>
+                <span> ${_time.formatime("%02d:%02d")} </span>
             </td>
         </tr>
         <tr>

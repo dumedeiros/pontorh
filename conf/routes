@@ -12,6 +12,9 @@
 
 # Home page
 GET     /                                       Application.index
+GET    /useravatar                                       Application.getUserAvatar
+POST        /setavatar                                  Ajax.setUserAvatar
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

@@ -125,6 +125,9 @@
                 <div class="alert alert-danger">${flash.error}</div>
             #{/if}
 
+                <!-- FLASH AJAX -->
+                <div id="flash-ajax" class=""><span></span></div>
+
 
                 <!-- *** main continues *** -->
 
@@ -163,6 +166,24 @@
 
 <script>
 
+
+    function showNotification(msg) {
+        $.notify({
+            // options
+            message: msg
+        }, {
+            allow_dismiss: false,
+            position: null,
+            type: 'centred',
+            z_index: 1031,
+            delay: 2000,
+            timer: 2000,
+            placement: {
+                from: 'top',
+                align: 'center'
+            },
+        });
+    }
 
     $(document).ready(function (e) {
         var cookie = document.cookie;

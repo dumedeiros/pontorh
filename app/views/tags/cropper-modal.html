@@ -1,126 +1,128 @@
-#{script 'cropper-script.js'/}
+<link href="@{'/public/stylesheets/modal-drop.css'}" rel="stylesheet">
+<link href="@{'/public/stylesheets/big-loader.css'}" rel="stylesheet">
+<script type="text/javascript" src="@{'/public/templates/dropzone/dropzone.js'}"></script>
 
-<!-- Content -->
-<div class="curve-container"
-     style="min-width: 300px; max-width:300px; min-height: 300px; max-height: 300px; width: 300px; margin-left: 20px">
-    <div class="row">
-        <!-- <h3 class="page-header">Demo:</h3> -->
-        <div class="img-container"
-             style="width: 300px; height: 300px; min-width: 300px; max-width:300px; min-height: 300px; max-height: 300px; ">
-            <img id="image" src="../../../public/images/fox-08.jpg">
+<!-- Show the cropped image in modal -->
+<div class="modal fade docs-cropped" id="imageEditorModal" role="dialog" aria-hidden="true"
+     aria-labelledby="getCroppedCanvasTitle" tabindex="-1">
+    <div class="modal-dialog" style="width: 595px; height: 138px">
+        <div class="modal-content">
+            <!-- .modal-body -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="imageEditorTitle">Editar Foto</h4>
+            </div>
+            <!-- .modal-body -->
+            <div class="modal-body" style="">
+                <div id="image-upload-holder" class="display-none">
+                    <div class="dz-preview dz-file-preview">
+                        <div class="dz-details">
+                        *{<div class="dz-filename"><span data-dz-name></span></div>}*
+                            *{<div class="dz-size" data-dz-size></div>}*
+                            *{<img data-dz-thumbnail/>}*
+                        </div>
+                    *{<div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>}*
+                    *{<div class="dz-success-mark"><span>✔</span></div>}*
+                    *{<div class="dz-error-mark"><span>✘</span></div>}*
+                    *{<div class="dz-error-message"><span data-dz-errormessage></span></div>}*
+                    </div>
+                </div>
+
+            *{<button id="test">Teste</button>}*
+                <!-- .preview-template -->
+                <div id="preview-template" class="display-none">
+                    <div class="dz-preview dz-file-preview">
+                        <div class="dz-details">
+                            <img id="aaa" data-dz-thumbnail/>
+
+                            <div class="dz-filename"><span data-dz-name></span></div>
+                            <div class="dz-size" data-dz-size></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- .bigLoader -->
+                <div id="big-loader" class="display-none"
+                     style="position: relative; margin: -30px 0 0 -170px; padding-bottom: 70px">
+                    <div class="cssload-big-loader"></div>
+                </div>
+
+                <!-- .upload-place -->
+                <div id="upload-place" class="image-upload display-none">
+                    <div class="modal-dropzone">
+                        <div style="display: block;" class="modal-dropzone-default tab-page">
+
+                            <form action="@{Ajax.getFile()}"
+                                  class="dropzone modal-input-file"
+                                  id="my-awesome-dropzone">asdasdadad
+                            </form>
+
+                            <div class="modal-dropzone-img"></div>
+
+                            <p><b>Arraste e solte ou clique aqui</b>para fazer o upload de sua imagem (max 2 MiB)
+                            </p>
+                        </div>
+                        <div style="display: none;" class="modal-dropzone-preview tab-page"></div>
+                    </div>
+
+                    <!-- .modal-option -->
+                    <div class="modal-options display-none" style="margin-top: 18px">
+                        <!-- Lin    k -->
+                        <div class="modal-options-default modal-options-addlink tab-page display-none">
+                            Você também pode adicionar um <a id="addlink" href="#">link da web</a>.
+                        </div>
+                        <!-- Link input -->
+                        <div class="modal-options-url tab-page display-none">
+                            Link da web
+                            <input style="width: 180px" value="" class="modal-input-url user-input" name="upload-url"
+                                   placeholder="http://exemplo.com/imagem.png" type="text">
+                            <span class="modal-options-separator">|</span>
+                            <a class="modal-options-cancel" href="#">Cancel</a>
+                        </div>
+                        <!-- Cancel -->
+                        <div class="modal-options-preview tab-page display-none">
+                            <a class="modal-options-cancel" href="#">Cancel and add another image</a>
+                        </div>
+                        <!-- Load -->
+                        <div class="modal-options-uploading tab-page display-none">
+                            <div class="cssload-loader"
+                                 style="position: relative; margin: 0 0 0 250px; padding-top: 10px;"></div>
+                        </div>
+                        <!-- Error -->
+                        <div class="modal-options-error tab-page display-none">
+                        *{//TODO colocar em css}*
+                            <span style="color: red; font-weight: bold" class="modal-options-error-message"></span>
+                            <span class="modal-options-separator">|</span>
+                            <a class="modal-options-cancel" href="#">Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- .cropper-place -->
+                <div id="cropper-place" style="margin-left: 20px">
+                    <div style="position: absolute; z-index: 1; margin-left: 360px; margin-top: 50px; ">
+                        <div><span>Pre-vizualização</span></div>
+                        <div class="img-preview preview-default"></div>
+                    </div>
+                    <!-- Upload image and data -->
+                    <div class="avatar-upload">
+                        <label for="avatarInput">Editar</label>
+                    </div>
+
+                #{cropper /}
+
+                </div>
+
+            </div>
+            <!-- /.modal-body -->
+            <!-- .modal-footer -->
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <buton class="btn btn-primary" id="imageEditorModal-ok">Ok</buton>
+            </div>
+            <!-- /.modal-footer -->
         </div>
     </div>
-</div>
-<div class="row" id="actions" style="margin-top: 10px; margin-left: -70px">
-    <div class="col-md-9 docs-buttons">
-        <!-- <h3 class="page-header">Toolbar:</h3> -->
-        <!-- MOVE OR CROP -->
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="move" title="Move">
-            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.setDragMode(&quot;move&quot;)">
-              <span class="fa fa-arrows"></span>
-            </span>
-            </button>
-            <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="crop" title="Crop">
-            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.setDragMode(&quot;crop&quot;)">
-              <span class="fa fa-crop"></span>
-            </span>
-            </button>
-        </div>
+</div><!-- /.modal -->
 
-        <!-- ZOOM -->
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary" data-method="zoom" data-option="0.1" title="Zoom In">
-            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.zoom(0.1)">
-              <span class="fa fa-search-plus"></span>
-            </span>
-            </button>
-            <button type="button" class="btn btn-primary" data-method="zoom" data-option="-0.1" title="Zoom Out">
-            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.zoom(-0.1)">
-              <span class="fa fa-search-minus"></span>
-            </span>
-            </button>
-        </div>
-
-        <!-- MOVE CANVAS -->
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary" data-method="move" data-option="-30"
-                    data-second-option="0"
-                    title="Move Left">
-            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.move(-10, 0)">
-              <span class="fa fa-arrow-left"></span>
-            </span>
-            </button>
-            <button type="button" class="btn btn-primary" data-method="move" data-option="10" data-second-option="0"
-                    title="Move Right">
-            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.move(10, 0)">
-              <span class="fa fa-arrow-right"></span>
-            </span>
-            </button>
-            <button type="button" class="btn btn-primary" data-method="move" data-option="0"
-                    data-second-option="-10"
-                    title="Move Up">
-            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.move(0, -10)">
-              <span class="fa fa-arrow-up"></span>
-            </span>
-            </button>
-            <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="10"
-                    title="Move Down">
-            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.move(0, 10)">
-              <span class="fa fa-arrow-down"></span>
-            </span>
-            </button>
-        </div>
-
-        <br/>
-
-        <!-- ROTATE -->
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary" data-method="rotate" data-option="-10"
-                    title="Rotate Left">
-            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.rotate(-10)">
-              <span class="fa fa-rotate-left"></span>
-            </span>
-            </button>
-            <button type="button" class="btn btn-primary" data-method="rotate" data-option="10"
-                    title="Rotate Right">
-            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.rotate(10)">
-              <span class="fa fa-rotate-right"></span>
-            </span>
-            </button>
-        </div>
-
-        <!-- SCALE -->
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary" data-flip="horizontal" data-method="scaleX"
-                    data-option="-1"
-                    title="Flip Horizontal">
-            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.scaleX(-1)">
-              <span class="fa fa-arrows-h"></span>
-            </span>
-            </button>
-            <button type="button" class="btn btn-primary" data-flip="vertical" data-method="scaleY" data-option="-1"
-                    title="Flip Vertical">
-            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.scaleY(-1)">
-              <span class="fa fa-arrows-v"></span>
-            </span>
-            </button>
-        </div>
-
-
-        <!-- RESET & UPLOAD -->
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary" data-method="reset" title="Reset">
-            <span class="docs-tooltip" data-toggle="tooltip" title="cropper.reset()">
-              <span class="fa fa-refresh"></span>
-            </span>
-            </button>
-            <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
-                <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
-            <span class="docs-tooltip" data-toggle="tooltip" title="Import image with Blob URLs">
-              <span class="fa fa-upload"></span>
-            </span>
-            </label>
-        </div>
-    </div>
-</div>

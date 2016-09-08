@@ -150,8 +150,8 @@ textarea {
     visibility: hidden;
 }
 
-.not-displayable {
-    display: none;
+.display-none {
+    display: none; !important;
 }
 
 .user-comment {
@@ -343,3 +343,7 @@ form div.clearfix input.x-pequeno {
 .male {
     background: #3984bc !important;
 }
+
+
+
+

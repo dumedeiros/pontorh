@@ -1,10 +1,9 @@
 #{extends 'main.html' /}
 #{set title: messages.get('application.account') /}
 
-
 <div style="margin-left: 400px; margin-top: 10px">
     <ul class="polaroids">
-        <a href="#" id="change-picture"><img src=@{Application.getUserAvatar()}></a>
+        <a href="#" id="change-picture"><img id="change-picture-img" src=@{Application.getUserAvatar()}></a>
     </ul>
 </div>
 
@@ -101,8 +100,51 @@
 
 </div>
 
+#{cropper-modal /}
 
+<style>
+
+    .null {
+        width: 0px !important;
+        height: 0px !important;
+        min-width: 0px;
+        max-width: 0px;
+        min-height: 0px;
+        max-height: 0px;
+    }
+
+    .img-preview-hidden {
+        overflow: hidden;
+        position: absolute;
+        background: blue;
+        z-index: -10;
+        top: 0;
+    }
+</style>
+
+
+<script type="text/javascript"
+        src="@{'/public/templates/bootstrap-select-1.10.0/dist/js/i18n/defaults-pt_BR.min.js'}"></script>
+
+<link href="@{'/public/templates/cropperjs/assets/css/font-awesome.min.css'}" rel="stylesheet">
+<link href="@{'/public/templates/cropperjs/assets/css/font-awesome.min.css'}" rel="stylesheet">
+<link href="@{'/public/templates/cropperjs/dist/cropper.css'}" rel="stylesheet">
+<link href="@{'/public/templates/cropperjs/demo/css/main.css'}" rel="stylesheet">
+<script src="@{'/public/templates/cropperjs/dist/cropper.js'}"></script>
+<script src="@{'/public/templates/cropperjs/demo/js/main.js'}"></script>
+
+<script src="@{'/public/javascripts/cropper-script.js'}"></script>
 <script>
+
+    var cropper, globalDataUrl, globalFile, globalDropZone, isToSave, isInEditScreen;
+
+    function showFlashAjax(msg, type) {
+        $('#flash-ajax span').text(msg);
+        $("#flash-ajax").removeClass();
+        $("#flash-ajax").addClass('alert alert-' + type);
+        $("#flash-ajax").show(500);
+    }
+
     $(".provider-exclude-icon-close").hover(
             function () {
                 $(this).parent().addClass("remove-icon");
@@ -111,8 +153,493 @@
             }
     );
 
-</script>
+    function showEditorModal() {
+        $("#imageEditorModal").modal();
+    }
 
+    function hideEditorModal() {
+        $("#imageEditorModal").modal('hide');
+    }
+
+    function showLoad() {
+        $("#big-loader").show();
+    }
+
+    function hideLoad() {
+        $("#big-loader").hide();
+    }
+
+    function showUploadPlace() {
+        $("#upload-place").show();
+    }
+
+    function hideUploadPlace() {
+        $("#upload-place").hide();
+    }
+
+    function showModalDropzone() {
+        $("#modal-dropzone").show();
+    }
+
+    function hideModalDropzone() {
+        $("#modal-dropzone").hide();
+    }
+
+    //    function showImageUploadHolder() {
+    //        $("#image-upload-holder").show();
+    //    }
+    //
+    //    function hideImageUploadHolder() {
+    //        $("#image-upload-holder").hide();
+    //    }
+
+    function showError() {
+        $(".modal-options-error").show();
+    }
+
+    function hideError() {
+        $(".modal-options-error").hide();
+    }
+
+    function setError(msg) {
+        $(".modal-options-error-message").text(msg);
+    }
+
+    function showModalOptions() {
+        $(".modal-options").show();
+    }
+
+    function hideModalOptions() {
+        $(".modal-options").hide();
+    }
+
+    function showAddLink() {
+        $(".modal-options-addlink").show();
+    }
+
+    function hideAddLink() {
+        $(".modal-options-addlink").hide();
+    }
+
+
+    function showUrlInput() {
+        $(".modal-options-url").show();
+    }
+
+    function hideUrlInput() {
+        $(".modal-options-url").hide();
+    }
+
+    function clearUrlInput() {
+        $(".modal-options-url .user-input").val("");
+    }
+
+    function showCropperPlace() {
+        $("#aqui").show();
+        $("#cropper-place").show();
+
+//        $("#cropper-place").css('visibility', 'visible');
+//        $("#cropper-place").removeClass('null');
+//        $("#cropper-place").addClass('teste');
+    }
+
+    function hideCropperPlace() {
+        $("#cropper-place").hide();
+    }
+
+    function hideModalOptionsAndChildren() {
+        $(".modal-options").children().hide();
+        $(".modal-options").hide();
+    }
+
+    function resetUploaderPlace() {
+        clearUrlInput();
+        hideCropperPlace();
+        hideLoad();
+        hideModalOptionsAndChildren();
+        showUploadPlace();
+        showModalOptions();
+        showAddLink();
+    }
+
+    function resetCropperPlace() {
+        hideLoad();
+        hideUploadPlace();
+        showCropperPlace();
+    }
+
+    //hideAllUploadPlace
+
+
+    function cropperFunction() {
+
+
+        var image = document.getElementById('image');
+        var actions = document.getElementById('actions');
+
+        var options = {
+//            aspectRatio: 16 / 9,
+            preview: '.img-preview',
+            dragMode: 'move',
+            guides: false,
+            cropBoxMovable: false,
+            cropBoxResizable: false,
+            center: false,
+            minContainerWidth: 300,
+            minContainerHeight: 300,
+            minCanvasWidth: 100,
+            minCanvasHeight: 100
+        };
+
+        $('#imageEditorModal').on('shown.bs.modal', function () {
+            cropper = new Cropper(image, options);
+
+        });
+
+        $('#imageEditorModal').on('show.bs.modal', function () {
+            globalDropZone.removeAllFiles();
+//            hideLoad();
+            var userAvatar = '${userAvatar.raw()}';
+            console.log(userAvatar == null);
+            if (userAvatar == 'null') {
+                resetUploaderPlace();
+                console.log("isToSave " + isInEditScreen);
+                isInEditScreen = false;
+            } else {
+                console.log("isToSave " + isInEditScreen);
+                resetCropperPlace();
+                isInEditScreen = true;
+            }
+        }).on('hidden.bs.modal', function () {
+            cropper.destroy();
+        });
+
+
+        // Tooltip
+        $('[data-toggle="tooltip"]').tooltip();
+
+
+        // Methods
+        actions.querySelector('.docs-buttons').onclick = function (event) {
+            var e = event || window.event;
+            var target = e.target || e.srcElement;
+            var data;
+
+            if (!cropper) {
+                return;
+            }
+
+            while (target !== this) {
+                if (target.getAttribute('data-method')) {
+                    break;
+                }
+
+                target = target.parentNode;
+            }
+
+            if (target === this || target.disabled || target.className.indexOf('disabled') > -1) {
+                return;
+            }
+
+            data = {
+                method: target.getAttribute('data-method'),
+                option: target.getAttribute('data-option'),
+                secondOption: target.getAttribute('data-second-option')
+            };
+
+            console.log(data)
+            if (data.method) {
+                cropper[data.method](data.option, data.secondOption);
+                switch (data.method) {
+                    case 'scaleX':
+                    case 'scaleY':
+                        target.setAttribute('data-option', -data.option);
+                        break;
+                }
+            }
+        };
+
+        function preventDefault(e) {
+            if (e) {
+                if (e.preventDefault) {
+                    e.preventDefault();
+                } else {
+                    e.returnValue = false;
+                }
+            }
+        }
+
+
+        document.body.onkeydown = function (event) {
+            var e = event || window.event;
+
+            if (!cropper || this.scrollTop > 300) {
+                return;
+            }
+
+            switch (e.keyCode) {
+                case 37:
+                    preventDefault(e);
+                    cropper.move(-1, 0);
+                    break;
+
+                case 38:
+                    preventDefault(e);
+                    cropper.move(0, -1);
+                    break;
+
+                case 39:
+                    preventDefault(e);
+                    cropper.move(1, 0);
+                    break;
+
+                case 40:
+                    preventDefault(e);
+                    cropper.move(0, 1);
+                    break;
+            }
+        };
+
+
+//        // Import image
+//        var inputImage = document.getElementById('inputImage');
+//        var URL = window.URL || window.webkitURL;
+//        var blobURL;
+//
+//        if (URL) {
+//            inputImage.onchange = function () {
+//                var files = this.files;
+//                var file;
+//
+//                if (cropper && files && files.length) {
+//                    file = files[0];
+//
+//                    if (/^image\/\w+/.test(file.type)) {
+//                        blobURL = URL.createObjectURL(file);
+//                        cropper.reset().replace(blobURL);
+//                        inputImage.value = null;
+//                    } else {
+//                        window.alert('Escolha um arquivo de imagem.');
+//                    }
+//                }
+//            };
+//        } else {
+//            inputImage.disabled = true;
+//            inputImage.parentNode.className += ' disabled';
+//        }
+    }
+
+    Dropzone.options.myAwesomeDropzone = {
+        init: function () {
+            globalDropZone = this;
+
+            this.on("success", function () {
+                isToSave = true;
+                resetCropperPlace();
+                cropper.reset();
+                cropper.replace(globalDataUrl);
+            })
+            this.on("thumbnail", function (file, dataUrl) {
+                globalFile = file;
+                globalDataUrl = dataUrl;
+
+            });
+            this.on("addedfile", function (file, dataUrl) {
+                hideUploadPlace();
+                hideAddLink();
+                showLoad();
+            });
+            this.on("error", function (first, second, third) {
+                if (contains(second, "File is too")) {
+                    isToSave = false;
+                    setError('A imagem é muito grande (acima de 2 MiB)');
+                    resetUploaderPlace();
+                    hideAddLink();
+                    showError();
+                }
+            });
+
+        },
+        paramName: "file", // The name that will be used to transfer the file
+        maxFilesize: 2, // MB
+        accept: function (file, done) {
+            if (file.name == "justinbieber.jpg") {
+                done("Naha, you don't.");
+            }
+            else {
+                done();
+            }
+        },
+        previewsContainer: '#image-upload-holder',
+        previewTemplate: document.getElementById('preview-template').innerHTML,
+        thumbnailWidth: '300',
+        thumbnailHeight: '300',
+        acceptedFiles: "image/*"
+
+
+    }
+
+    function reloadAvatar() {
+        $('#change-picture-img').attr('src', '/useravatar?' + new Date().getTime());//Força o navegador a fazr o reload da imagem ao invés de utilizar a que está no cache
+    }
+    //    $(document).ready(function () {
+    //        var myDropzone = new Dropzone("div#my-drop-zone", {url: "/file/post"});
+
+    //    dropZoneFunction();
+
+    $("#addlink").on("click", function () {
+        hideAddLink();
+        showUrlInput();
+    });
+
+
+    $(".modal-options-url .user-input").keypress(function (e) {
+        if (e.which == 13) {
+            e.preventDefault();
+            hideUploadPlace();
+            hideUrlInput();
+            showLoad();
+            var url = $(".modal-options-url .user-input").val();
+
+            $.ajax({
+                url: "@{Ajax.setAvatarFromURL()}",
+                type: 'POST',
+                data: {url: url},
+                beforeSend: function () { //cancel previous ajax call
+                },
+                success: function (response) {
+
+                    var isStatusOk = response.isStatusOk == "true";
+
+                    if (isStatusOk) {
+                        hideEditorModal();
+//                        hideUrlInput();
+//                        clearUrlInput();
+                        showNotification("Avatar alterado com sucesso");
+                        reloadAvatar();
+                    } else {
+                        resetUploaderPlace();
+                        hideAddLink();
+                        setError("Falha ao fazer o upload da image; o formato não é suportado");
+                        showError();
+                    }
+
+                },
+                error: function (response) {
+                    resetUploaderPlace();
+                    hideAddLink();
+                    setError("Falha ao fazer o upload da image; o formato não é suportado");
+                    showError();
+                },
+                complete: function () {
+                }
+            });
+        }
+    });
+
+
+    $(".modal-options-cancel").on("click", function () {
+        globalDropZone.removeAllFiles();
+        resetUploaderPlace();
+    });
+
+
+    cropperFunction();
+
+    //TODO adicionar Utils aqui
+    function contains(string, word) {
+        return string.indexOf(word) > -1
+    }
+
+    //    function IsValidImageUrl(url, callback) {
+    //        var img = new Image();
+    //        img.onerror = function () {
+    //            callback(url, false);
+    //        }
+    //        img.onload = function () {
+    //            callback(url, true);
+    //        }
+    //        img.src = url
+    //        console.log(img);
+    //    }
+
+    //
+    //    function myCallback(img, data) {
+    //        debugger;
+    ////        console.log(data);
+    ////        console.log(img);
+    //        cropper.replace(data);
+    //    }
+
+    //    function myCallbackAntes(url, isValid) {
+    //        hideLoad();
+    //        if (!isValid) {
+    //            showUploadPlace();
+    //            setError('Falha no upload da imagem; o formato não é suportado');
+    //            showError();
+    //        } else {
+    //            console.log(url);
+    ////            $(".img-container .image").attr("crossOrigin", 'Anonymous');
+    //            cropper.replace(url);
+    ////            $(".img-container .image").attr("src", url);
+    //        }
+    //    }
+
+    //    $("#test").on('click', function () {
+    //        showCropperPlace()
+    //
+    //    })
+
+    $("#discard-image").click(function () {
+        resetUploaderPlace();
+        isToSave = false;
+        isInEditScreen = false;
+    });
+
+    $("#change-picture").click(function () {
+        showEditorModal();
+    });
+
+    //    $("#discard-image").on('click', function () {
+    //        showUploadPlace();
+    //        hideCropperPlace();
+    //        showAddLink()
+    //
+    //    })
+    //    })
+
+
+    $("#imageEditorModal-ok").click(function () {
+
+
+        console.log("isToSave " + isToSave);
+        console.log("isInEditScreen " + isInEditScreen);
+        hideEditorModal();
+        if (isToSave || isInEditScreen) {
+            console.log("salvar");
+            cropper.getCroppedCanvas().toBlob(function (blob) {
+                console.log(blob);
+
+                var data = new FormData();
+                data.append('blob', blob);
+                console.log(data);
+
+                $.ajax({
+                    type: "Post",
+                    url: "/setavatar",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        reloadAvatar();
+//                    if (result != undefined && result.length > 0);
+//                        alert(result);
+                    }
+                });
+            });
+        }
+    });
+</script>
 
 
 </head>

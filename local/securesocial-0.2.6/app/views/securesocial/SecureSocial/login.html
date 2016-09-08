@@ -10,26 +10,26 @@
     }
 </script>
 
-<div class="clearfix">
-    <p>&{'securesocial.clickOnYourAccount'}</p>
+*{<div class="clearfix">}*
+    *{<p>&{'securesocial.clickOnYourAccount'}</p>}*
 
-    <p>
-    #{list items: providers, as: 'provider'}
-        #{if provider.type != securesocial.provider.ProviderType.userpass}
-            #{if (provider.authMethod == securesocial.provider.AuthenticationMethod.OPENID ||
-            provider.authMethod == securesocial.provider.AuthenticationMethod.OPENID_OAUTH_HYBRID) &&
-            provider.needsUsername() }
-            <a href="javascript:openid('${provider.type}')">
-            #{/if}
-            #{else}
-            <a href="@{securesocial.SecureSocial.authenticate(provider.type.toString().toLowerCase())}">
-            #{/else}
-            <img src="@{'/public/images/providers/'}/${provider.type.toString().toLowerCase()}.png"
-                 title="${provider.type.valueName}"/></a>
-        #{/if}
-    #{/list}
-    </p>
-</div>
+    *{<p>}*
+    *{#{list items: providers, as: 'provider'}}*
+        *{#{if provider.type != securesocial.provider.ProviderType.userpass}}*
+            *{#{if (provider.authMethod == securesocial.provider.AuthenticationMethod.OPENID ||}*
+            *{provider.authMethod == securesocial.provider.AuthenticationMethod.OPENID_OAUTH_HYBRID) &&}*
+            *{provider.needsUsername() }}*
+            *{<a href="javascript:openid('${provider.type}')">}*
+            *{#{/if}}*
+            *{#{else}}*
+            *{<a href="@{securesocial.SecureSocial.authenticate(provider.type.toString().toLowerCase())}">}*
+            *{#{/else}}*
+            *{<img src="@{'/public/images/providers/'}/${provider.type.toString().toLowerCase()}.png"}*
+                 *{title="${provider.type.valueName}"/></a>}*
+        *{#{/if}}*
+    *{#{/list}}*
+    *{</p>}*
+*{</div>}*
 
 
 <div id="openid-form" class="clearfix" style="display:none;">

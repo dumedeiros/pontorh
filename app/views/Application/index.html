@@ -250,7 +250,7 @@
                     //Id pego do modal para indentificar os elementos a serem atualizado
                     //(elementos = edit button da aba seman e mensal)
                     var wdid = elementHolder.attr('data-wdid')
-                    var el = $('img[data-wdid=' + wdid + ']');    //elements (week and/or month) that hold the comments
+                    var el = $('img[data-w  did=' + wdid + ']');    //elements (week and/or month) that hold the comments
                     $(el).attr('data-wdcomment', d.data.comment);
                     var userCommentIcon = $('img[data-wdid=wd-comment-' + wdid + ']');  //UserCommentIcon (week and month)
                     if (isStringEmpty(d.data.comment)) {
@@ -258,8 +258,7 @@
                     } else {
                         $(userCommentIcon).show();  //Show user-comment-icon
                     }
-
-                    showNotification();
+                    showNotification('Observação registrada com sucesso.');
                 },
                 error: function () {
                     showModalAlert(true);
@@ -309,25 +308,6 @@
             $("#send").click();
         }
     });
-
-
-    function showNotification() {
-        $.notify({
-            // options
-            message: 'Observação registrada com sucesso.'
-        }, {
-            allow_dismiss: false,
-            position: null,
-            type: 'centred',
-            z_index: 1031,
-            delay: 2000,
-            timer: 1000,
-            placement: {
-                from: 'top',
-                align: 'center'
-            },
-        });
-    }
 
 
     //    $.notify({

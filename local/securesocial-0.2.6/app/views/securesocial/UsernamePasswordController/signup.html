@@ -12,7 +12,7 @@
                 <div class="input">
                 *{//fixme descomentar e remover linha abaixo}*
                 *{<input id="${field.id}" class="large" name="${field.name}" value="${field.value}"/>}*
-                    <input id="${field.id}" class="large" name="${field.name}" value=""/>
+                    <input id="${field.id}" class="large" name="${field.name}" value="${flash.userName}"/>
 
                     #{ifError field.name}
                         <span class="help-inline">${field.error}</span>
@@ -28,7 +28,7 @@
                 <div class="input">
                 *{//todo descomentar e remover linha abaixo}*
                 *{<input id="${field.id}" class="large" name="${field.name}" value="${field.value}"/>}*
-                    <input id="${field.id}" class="large" name="${field.name}" value=""/>
+                    <input id="${field.id}" class="large" name="${field.name}" value="${flash.displayName}"/>
                     #{ifError field.name}
                         <span class="help-inline">${field.error}</span>
                     #{/ifError}
@@ -38,13 +38,14 @@
 
 
         #{field 'email'}
+
             <div class="clearfix #{ifError field.name} error #{/ifError}">
                 <label for="${field.id}">&{'securesocial.email'}</label>
 
                 <div class="input">
                 *{//fixme descomentar e remover linha abaixo}*
                 *{<input id="${field.id}" class="large" name="${field.name}" value="${field.value}"/>}*
-                    <input id="${field.id}" class="large" name="${field.name}" value=""/>
+                    <input id="${field.id}" class="large" name="${field.name}" value="${flash.email}"/>
                     #{ifError field.name}
                         <span class="help-inline">${field.error}</span>
                         <span class="help-inline">&{'securesocial.emailHelp'}</span>

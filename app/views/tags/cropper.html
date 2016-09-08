@@ -1,17 +1,17 @@
 <!-- Content -->
-<div class="curve-container"
+<div class=""
      style="min-width: 300px; max-width:300px; min-height: 300px; max-height: 300px; width: 300px; margin-left: 20px">
     <div class="row">
         <!-- <h3 class="page-header">Demo:</h3> -->
         <div class="img-container"
-             style="width: 300px; height: 300px; min-width: 300px; max-width:300px; min-height: 300px; max-height: 300px; ">
-            <img id="image" src="../../../public/images/fox-08.jpg">
+             style="width: 380px; height: 300px; min-width: 300px; max-width:300px; min-height: 300px; max-height: 300px; ">
+            <img id="image" src="@{Application.getUserAvatar()}">
         </div>
     </div>
-    <!-- <h3 class="page-header">Preview:</h3> -->
-
 </div>
-<div class="row" id="actions" style="margin-top: 10px; margin-left: -70px">
+
+
+<div class="row" id="actions" style="margin-top: 10px; margin-left: -80px">
     <div class="col-md-9 docs-buttons">
         <!-- <h3 class="page-header">Toolbar:</h3> -->
         <!-- MOVE OR CROP -->
@@ -115,12 +115,20 @@
               <span class="fa fa-refresh"></span>
             </span>
             </button>
-            <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
-                <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
-            <span class="docs-tooltip" data-toggle="tooltip" title="Import image with Blob URLs">
-              <span class="fa fa-upload"></span>
-            </span>
+
+        </div>
+
+        <div class="btn-group">
+            <label id="discard-image" class="btn btn-danger btn-upload" title="Descartar Imagem">
+            *{<input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">}*
+                <span class="docs-tooltip" data-toggle="tooltip" title="Descartar Imagem">
+                        <span class="fa fa-trash"></span>
+                    </span>
             </label>
         </div>
     </div>
 </div>
+
+<script>
+    console.log($("#image"));
+</script>
