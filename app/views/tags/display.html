@@ -59,15 +59,14 @@
             </td>
         </tr>
         <tr>
-        <td style="padding: 8px" colspan="4">
-        #{if _as == 'week'}
-            <a href="@{Application.monthReport(_reportDate)}" class="btn btn-info">Relatório</a>
-        </td>
-        #{/if}
-        #{else }
-            <a href="#" class="btn btn-info">Relatório</a></td>
-        #{/else}
-
+            <td style="padding: 8px" colspan="4">
+            *{#{if _as == 'week'}}*
+                <a href="@{Application.monthReport(_reportDate)}" class="btn btn-info">Relatório</a>
+            </td>
+        *{#{/if}}*
+        *{#{else }}*
+        *{<a href="#" class="btn btn-info">Relatório</a></td>}*
+        *{#{/else}}*
         </tr>
         </tfoot>
     </table>
