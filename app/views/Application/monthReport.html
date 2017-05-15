@@ -16,9 +16,9 @@
             </div>
             <div id="texto">
                 Universidade Federal Rural do Semi-árido <br>
-				<span>
-					Sistema Integrado de Gestão de Recursos Humanos<br/>
-				</span>
+            *{<span>}*
+            *{Sistema Integrado de Gestão de Recursos Humanos<br/>}*
+            *{</span>}*
                 <br/>
             *{TODO verificar pq nao ta aparecendo as horas do date}*
                 <span class="date"> Emitido em ${now.format("dd/MM/yyyy HH:mm")}</span>
@@ -40,10 +40,11 @@
             <table>
                 <thead>
                 <tr>
-                    <th>Data</th>
-                    <th>Horários Registrados</th>
-                    <th>Horas Resigtradas</th>
-                    <th width="30%">Observação</th>
+                    <th width="12%">Data</th>
+                    <th width="14%">Horários Registrados</th>
+                    <th width="12%">Horas Resigtradas</th>
+                    <th width="31%">Assinatura Bolsista</th>
+                    <th width="31%">Assinatura Orientador</th>
                 </tr>
                 </thead>
 
@@ -59,19 +60,20 @@
                     <td>
                     ${wd.value?.periods ? '' : '----' }
                         #{list items:wd.value?.periods, as:'p'}
-                            &nbsp;&nbsp;&nbsp;&nbsp;
+                        *{&nbsp;&nbsp;&nbsp;&nbsp;}*
                             <span>${p.dateIn?.format('HH:mm')}</span> -
                             <span>${p.dateOut?.format('HH:mm')}</span><br>
                         #{/list}
                     </td>
                     <!-- Horas registradas -->
                     <td>
-                        <span>${ wd.value?.registredTime ?  wd.value?.registredTime?.formatime("%02d:%02d:%02d") : '----'}</span>
+                        <span>${ wd.value?.registredTime ?  wd.value?.registredTime?.formatime("%02d:%02d") : '----'}</span>
                     </td>
                     <!-- Observação -->
-                    <td style="text-align: left; width: 10px">
+                    <td style="text-align: center; width: 10px">
                         <span>${wd?.value?.message}</span>
                     </td>
+                    <td></td>
                 </tr>
                 #{/list}
                 </tbody>
@@ -86,6 +88,7 @@
                         <span> ${mTime.formatime("%02d:%02d:%02d")} </span>
                     </td>
                     <td></td>
+                    <td></td>
                 </tr>
                 </tfoot>
             </table>
@@ -97,7 +100,7 @@
                 <tr>
                     <td class="back-icon hidden-print"><a href="javascript:history.back();"> Voltar </a></td>
                     <td align="center">
-                        #PontoRH | (84) 9999-0000 | Copyright &copy; 20016 - UFERSA
+                        #PontoRH | Copyright &copy; - UFERSA
                     </td>
                     <td align="right" class="print-icon hidden-print">
                         <a href="#" onclick="javascript:window.print();">

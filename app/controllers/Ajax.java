@@ -69,7 +69,7 @@ public class Ajax extends Controller {
      * @param wdid       id of WorkDay
      * @param commentMsg msg
      */
-    public static void editComment(String wdid, String commentMsg) {
+    public static void editComment(String wdid, String commentMsg) throws InterruptedException {
         //TODO tratar o formato das datas (internalization?)
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date dateObj = null;

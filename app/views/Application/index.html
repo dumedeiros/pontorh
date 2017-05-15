@@ -125,7 +125,7 @@
 
     //Show load image in modal window
     function showLoad(f) {
-        if (f == true) {
+        if (f) {
             $(".modal-header .cssload-loader").removeClass("elm-hidden");
         } else {
             $(".modal-header .cssload-loader").addClass("elm-hidden");
@@ -153,6 +153,8 @@
 
     //*MODAL EDIT PANEL
     $('#modalEditPanel').on('show.bs.modal', function (e) {
+
+        showModalAlert(false);
         var button = $(e.relatedTarget); // Button that triggered the modal
         elementHolder = button;          //put it global to external access
 
@@ -176,7 +178,6 @@
     //*MODAL SHOW PANEL
     $('#modalShowPanel').on('show.bs.modal', function (e) {
 
-
         var button = $(e.relatedTarget); // Button that triggered the modal
         var edit = $(button).closest("tr").find(".edit-comment");
 
@@ -197,6 +198,7 @@
 
 
     $('#modalShowPanel, #modalEditPanel').on('shown.bs.modal', function (e) {
+        resetModal(false, false, true);
         autoheight($(this).find(".expanding"));
     });
 
@@ -226,58 +228,59 @@
     //    *AJAX
     $("button#save-workday-comment").click(function () { //On click save button
 
+
         // get the comment msg from modal windows and compare if it has been modified
         var txt = $(".modal-body textarea#workday-comment-editor").val(); //Modified text
         var aux = $(".modal-body textarea#workday-comment-aux").val(); //Original text
         if (txt !== aux) { //if comment has been modified
 
-            showLoad(true);
-            showModalAlert(false);
+            resetModal(false, true, false);
+
 
             jqxhr = $.ajax({
                 url: "@{Ajax.editComment}",
                 type: 'POST',
                 data: $("#comment-form").serialize(),
                 beforeSend: function () { //cancel previous ajax call
+
                     if (jqxhr != null) {
                         jqxhr.abort();
                     }
                 },
+
                 success: function (d) {
+
                     $("#modalEditPanel").modal('hide');
 
                     //Update
                     //Id pego do modal para indentificar os elementos a serem atualizado
                     //(elementos = edit button da aba seman e mensal)
                     var wdid = elementHolder.attr('data-wdid')
-                    var el = $('img[data-w  did=' + wdid + ']');    //elements (week and/or month) that hold the comments
+                    var el = $('img[data-wdid=' + wdid + ']');    //elements (week and/or month) that hold the comments
                     $(el).attr('data-wdcomment', d.data.comment);
                     var userCommentIcon = $('img[data-wdid=wd-comment-' + wdid + ']');  //UserCommentIcon (week and month)
                     if (isStringEmpty(d.data.comment)) {
                         $(userCommentIcon).hide();  //Hide user-comment-icon
+                        showNotification('Observação Removida');
                     } else {
                         $(userCommentIcon).show();  //Show user-comment-icon
+                        showNotification('Observação registrada com sucesso');
                     }
-                    showNotification('Observação registrada com sucesso.');
+
+                    resetModal(false, false, true);
                 },
                 error: function () {
-                    showModalAlert(true);
-                },
-                complete: function () {
-                    showLoad(false);
+                    resetModal(true, false, true);
                 }
+
             });
         } else {//text hasn't been modified
             $("#modalEditPanel").modal('hide');
-            showLoad(false);
-            showModalAlert(false);
         }
     });
 
     $(".modal-footer #cancel, .modal-header .close").click(function () {//Close modal
         //Remove elements
-        showLoad(false);
-        showModalAlert(false);
 
         //cancels previous ajax requisition
         if (jqxhr != null) {
@@ -285,6 +288,19 @@
         }
 
     });
+
+    //Reseta o modal e executa comando dependendo dos valores dos argumentos
+    //Primeiro argumento Show Alert
+    //Segundo argumento desabilita o botao de salval comentario
+    function resetModal(showAlert, shLoad, enableButton) {
+        showModalAlert(showAlert);
+        showLoad(shLoad);
+        if(enableButton){
+            $("#save-workday-comment").removeAttr('disabled');
+        }else{
+            $("#save-workday-comment").attr('disabled', 'disabled');
+        }
+    }
 
 
     //    *DATEPICKER

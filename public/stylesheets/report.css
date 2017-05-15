@@ -68,6 +68,7 @@ table {
 }
 
 .report-body table tr th {
+    font-size: 0.9em;
     border: solid thin black;
 }
 

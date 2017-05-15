@@ -147,7 +147,7 @@ textarea {
 }
 
 .elm-hidden {
-    visibility: hidden;
+    visibility: hidden; @!important;
 }
 
 .display-none {
